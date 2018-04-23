@@ -1,4 +1,4 @@
-public class Checking extends Account{
+public class Savings extends Account{
     private static int accountNumber; 
     Transaction deposit;
     Transaction withdrawal;
@@ -7,7 +7,7 @@ public class Checking extends Account{
     final static int MIN_TRANS = 1;
 	private double BALANCE_INTEREST;
 	
-    public Checking(Customer customer, String date, int accountNumber){
+    public Savings(Customer customer, String date, int accountNumber){
     	super(customer, date, accountNumber);
     }
     
@@ -26,7 +26,7 @@ public class Checking extends Account{
 	
 	@Override
 	public String toString() {
-		return "Checking Account Transaction: ";
+		return "Savings Account Transaction: ";
 		
 	}
     

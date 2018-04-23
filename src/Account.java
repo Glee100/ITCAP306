@@ -13,6 +13,7 @@ public abstract class Account extends Login{
     	
     }
     
+    
     public abstract void withDrawAmount(int amount);
     public abstract void transactionDate(String date);
     
@@ -34,7 +35,7 @@ public abstract class Account extends Login{
     //set deposit
     public void setDeposit(Transaction deposit)
     {
-    	if(deposit>= MIN_TRANS)
+    	if(deposit.getAmount()>= MIN_TRANS)
     	{
     		this.deposit = deposit;
     	}
@@ -45,7 +46,7 @@ public abstract class Account extends Login{
     //set withdrawal
     public void setWithdrawal(Transaction withdrawal)
     {
-    	if(withdrawal>= MIN_TRANS && withdrawal <= getBalance() )
+    	if(withdrawal.getAmount()>= MIN_TRANS && withdrawal.getAmount() <= getBalance() )
     	{
     		this.withdrawal = withdrawal;
     	}
@@ -70,19 +71,19 @@ public abstract class Account extends Login{
     }
     
     //get deposit
-    public Deposit getDeposit()
+    public Transaction getDeposit()
     {
     	return this.deposit;
     }
     
     //get withdrawal
-    public Withdrawal getWithdrawal()
+    public Transaction getWithdrawal()
     {
     	return this.withdrawal;
     }
     
     //get interest
-    public int getInterest()
+    public double getInterest()
     {
     	return this.interest;
     }
@@ -91,6 +92,10 @@ public abstract class Account extends Login{
     public int getBalance()
     {
     	return this.balance;
+    }
+    
+    public String toString() {
+    	return "Account information";
     }
    
 }

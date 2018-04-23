@@ -6,7 +6,7 @@ public class Checking extends Account{
     public final double MIN_DEPOSIT = 100;
     // must be double
     private double balance;
-    //final static int MIN_TRANS = 1; call it from the abstract class
+    public final double CHECKING_INTEREST = 0.05;
 	public final int INTEREST_BALANCE_FIXED = 50000;
 	//total deposits made to checkings acc
 	private static double totalDeposits = 0;
@@ -46,11 +46,12 @@ public class Checking extends Account{
     	return totalDeposits - totalWithdrawals;
     }
     //returns interest according to the balance
-    public double getInterest(double balance) {
-    	
+    public double getInterestAmount() {
+    	return getBalance() * CHECKING_INTEREST;
     }
-    
-    
+    public double getTotalBalance() {
+    	return getBalance() + getInterestAmount();
+    }
 	@Override
 	public String toString() {
 		return "Checking Account Transaction: ";

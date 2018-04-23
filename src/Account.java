@@ -7,7 +7,6 @@ public abstract class Account{
     Customer customer;
     private double balance;
     final static int MIN_TRANS = 1;
-    
     public Account(Customer customer, String date, int accountNumber){
     	this.customer = customer;
     	this.accountNumber = accountNumber;

@@ -1,16 +1,13 @@
 public class Savings extends Account{
-    private static int accountNumber; 
     Transaction deposit;
     Transaction withdrawal;
     Customer customer;
-    private int balance;
-   // final static int MIN_TRANS = 1;
+    private double interest;
     public final double MIN_DEPOSIT = 500;
 	private final double BALANCE_INTEREST = 0.03;// for now
 	private final double BALANCE_INTEREST_MAX = 0.25;
 	public final int INTEREST_BALANCE_FIXED = 50000;
 	private static double totalDeposits = 0;
-	private static double totalBalance = 0;
 	private static double totalWithdrawals = 0;
     public Savings(Customer customer, String date, int accountNumber, Transaction deposit){
     	super(customer, date, accountNumber);
@@ -27,17 +24,44 @@ public class Savings extends Account{
     }
     
     //returns interest according to the balance
-    public double getInterest(double balance) {
+    public void setInterest(double balance) {
     		if(balance < INTEREST_BALANCE_FIXED) {
-    			return BALANCE_INTEREST;//0.03%
+    			 this.interest = BALANCE_INTEREST;//0.03%
     		}else {
-    			return BALANCE_INTEREST_MAX;//0.25
+    			this.interest = BALANCE_INTEREST_MAX;//0.25
     		}
+    }
+    public double getInterest(){
+    	return this.interest;
+    }
+    public void makeDeposit(Transaction deposit) {
+    	this.deposit = deposit;
+    	// storing total deposits
+    	totalDeposits= totalDeposits + deposit.getAmount();
+    }
+    public void makeWithdrawal(Transaction withdrawal) {
+    	this.withdrawal = withdrawal; // might not need it
+    	totalWithdrawals = totalWithdrawals + withdrawal.getAmount();
+    }
+    public static double totalWithdrawals() {
+    	return totalWithdrawals;    	
+    }
+    public static double totalDeposits() {
+    	return totalDeposits;
+    }
+    public double getBalance() {
+    	return totalDeposits - totalWithdrawals;
+    }
+    //returns interest according to the balance
+    public double getInterestAmount() {
+    	return getBalance() * getInterest();
+    }
+    public double getTotalBalance() {
+    	return getBalance() + getInterestAmount();
     }
 	@Override
 	public String toString() {
-		return "Savings Account Transaction: ";
-		
+		return "Market Account Transaction: ";
 	}
-    
 }
+

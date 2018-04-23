@@ -5,12 +5,10 @@ public class Checking extends Account{
     Customer customer;
     public final double MIN_DEPOSIT = 100;
     // must be double
-    private double balance;
     public final double CHECKING_INTEREST = 0.05;
 	public final int INTEREST_BALANCE_FIXED = 50000;
 	//total deposits made to checkings acc
 	private static double totalDeposits = 0;
-	private static double totalBalance = 0;
 	private static double totalWithdrawals = 0;
     public Checking(Customer customer, String date, int accountNumber, Transaction deposit){
     	super(customer, date, accountNumber);

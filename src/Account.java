@@ -42,7 +42,7 @@ public abstract class Account{
     }
     
     
-    //set deposit
+    //set deposit ///
     public void setDeposit(Transaction deposit)
     {
     	if(deposit.getAmount()>= MIN_TRANS)

@@ -1,10 +1,11 @@
-public abstract class Account extends Login{
+//public abstract class Account extends Login{
+public abstract class Account{
     private static int accountNumber; 
     double interest;
     Transaction deposit;
     Transaction withdrawal;
     Customer customer;
-    private int balance;
+    private double balance;
     final static int MIN_TRANS = 1;
     
     public Account(Customer customer, String date, int accountNumber){
@@ -14,13 +15,22 @@ public abstract class Account extends Login{
     }
     
     
-    public abstract void withDrawAmount(int amount);
-    public abstract void transactionDate(String date);
+    /*public abstract void withDrawAmount(int amount);
+    public abstract void transactionDate(String date);*/
+    
+    /*
+     * update the account balance by adding deposit to the account, and subtracting a withdrawal from the account
+     * 
+     * */
+    public void updateBalance() 
+    {
+    	this.balance = (getBalance() + getDeposit().getAmount() - getWithdrawal().getAmount());
+    }
     
     //getters
     
     //set account number
-    public void setAccountNumber(int acctNum)
+    public void setAccountNumber(int acctNum) 
     {
     	this.accountNumber = acctNum;
     }
@@ -39,7 +49,7 @@ public abstract class Account extends Login{
     	{
     		this.deposit = deposit;
     	}
-    	
+
     }
     
     
@@ -89,7 +99,7 @@ public abstract class Account extends Login{
     }
     
     //get balance
-    public int getBalance()
+    public double getBalance()
     {
     	return this.balance;
     }

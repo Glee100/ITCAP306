@@ -11,18 +11,6 @@ public class Checking extends Account{
     	super(customer, date, accountNumber);
     }
     
-
-	@Override
-	public void withDrawAmount(int amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void transactionDate(String date) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
 	public String toString() {

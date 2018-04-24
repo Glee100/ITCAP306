@@ -90,20 +90,24 @@ public class implentationp
 	 Account c = new MarketAccount(customer,"12/14/12");
 	 */
 	 
+	 //find and return existing accounts for the customer
+	 
+	 
  	return null;
  }
  
- public static void Menu() {
+ public static void Menu(Customer customer) {
 		 
 		 ArrayList<String> optionList = new ArrayList<String>();
 		
 		 optionList.add("1");
 		 optionList.add("2");
+		 optionList.add("3");
 
 		 Object[] options = optionList.toArray();
 		 int value = JOptionPane.showOptionDialog(
 		                 null,
-		                 "Please select your encryption Algorithm:(1 or 2)\n 1. Data Encryption       Standard(DES) \n 2. Advanced Encryption Standard(AES)",
+		                 "Please select an option:\n 1. Create Account \n 2. View Balance \n3. Exit",
 		                 "Pick",
 		                 JOptionPane.YES_NO_OPTION,
 		                 JOptionPane.QUESTION_MESSAGE,
@@ -112,7 +116,24 @@ public class implentationp
 		                 optionList.get(0));
 
 		 String opt = optionList.get(value);
-		 System.out.println("You picked " + opt);
+		 
+		 
+		 switch(Integer.parseInt(opt))
+		 {
+		 case 1: //If the user selects 1 -- create an account
+			 createAccount(customer);
+			 break;
+		 case 2:
+			 break;
+		 case 3: //If the user selects 3 -- Exit, exit the program
+			 System.exit(0);
+			 break;
+		 default:
+			 break;
+		 }
+		 
+		 
+
  }
 
 /*

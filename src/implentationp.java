@@ -1,3 +1,4 @@
+import javax.swing.JOptionPane;
 
 /**
  * Write a description of class implentationp here.
@@ -9,7 +10,11 @@ public class implentationp
 {
     // instance variables - replace the example below with your own
  public static void main(String[] args){
-     Login l = new Login("customer1","123");
+	 
+	 
+	 
+     Login input1 = new Login("customer1","123");
+     
      //if true
      //customer1, john, etc,
      //tokens
@@ -20,4 +25,15 @@ public class implentationp
      print(linkedlist);
      
     }
+ // change parameters
+ public static Account createAccount(String[] Array) {
+	 JOptionPane.showInputDialog(null,"")
+	 Customer c = new Customer(JOptionPane.showInputDialog(null,"First Name"),JOptionPane.showInputDialog(null,"Last Name"), 
+			 					JOptionPane.showInputDialog(null,"address"), JOptionPane.showInputDialog(null,"phone"), 
+			 							JOptionPane.showInputDialog(null,"email");
+ }
+ public static void Menu(String[] Array) {
+	 
+ }
+ }
 }

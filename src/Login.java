@@ -18,8 +18,7 @@ public class Login{
     public void setPassword(String password){
     	this.password = password;
     }
-    public boolean validate(Login l){
-        // validate password
+    public boolean validate(Login input, Login system ){
     	if(l.getUserName() == inputUsername )
     return true;   
     }

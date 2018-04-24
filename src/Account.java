@@ -90,9 +90,19 @@ public abstract class Account{
     //get interest abstract method
     public abstract double getInterest();
     
-    
+    /*
+     * To String method
+     * The program should display the customer account number, first name, last name,
+     *  total account balance before interest, total interest, and grand total balance for each account for each type of account.
+     * */
     public String toString() {
-    	return "Account information";
+    	return "Account information"
+    			+ "\nAccount Number: " + getAccountNumber()
+    			+ "\nFirst Name: " + getCustomer().getFirstName()
+    			+ "\nLast Name: " + getCustomer().getLastName()
+    			+ "\nTotal Balance: " + getBalance()
+    			+ "\nTotal Interest: " + getInterestAmount()
+    			+ "\nGrand Total Balance: " + getTotalBalance();
     }
    
 }

@@ -32,7 +32,12 @@ public class Checking extends Account{
     }
 	@Override
 	public String toString() {
-		return "Checking Account Transaction: ";
-		
+		return "Checking Account Information: "
+		+ "\nAccount Number: " + getAccountNumber()
+		+ "\nFirst Name: " + getCustomer().getFirstName()
+		+ "\nLast Name: " + getCustomer().getLastName()
+		+ "\nTotal Balance: " + getBalance()
+		+ "\nTotal Interest: " + getInterestAmount()
+		+ "\nGrand Total Balance: " + getTotalBalance();
 	}
 }

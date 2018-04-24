@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Vector;
 
 public class Login{
 	
@@ -27,6 +28,7 @@ public class Login{
     		return true;   
     }*/
     
+    /*
     public boolean validate(Login userInput, Map<Login, Customer> logins ){
     	
     	//create iterator of the logins Map
@@ -36,6 +38,27 @@ public class Login{
     	while(it.hasNext())
     	{
     		Map.Entry<Login, Customer> entry = (Map.Entry<Login, Customer>)it.next();
+    		
+    		//if the user input username and password matches a login in the map, return true
+    		if(entry.getKey().getUserName() == userInput.getUserName() && entry.getKey().getPassword() == userInput.getPassword())
+    		{
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+    }*/
+    
+    
+    public boolean validate(Login userInput, Map<Login, Vector<Object>> logins ){
+    	
+    	//create iterator of the logins Map
+    	Iterator it = logins.entrySet().iterator();
+    	
+    	//while there is a next pair
+    	while(it.hasNext())
+    	{
+    		Map.Entry<Login, Vector<Object>> entry = (Map.Entry<Login, Vector<Object>>)it.next();
     		
     		//if the user input username and password matches a login in the map, return true
     		if(entry.getKey().getUserName() == userInput.getUserName() && entry.getKey().getPassword() == userInput.getPassword())

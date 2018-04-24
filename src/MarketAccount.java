@@ -22,31 +22,6 @@ public class MarketAccount extends Account{
     public double getInterest(){
     	return this.interest;
     }
-    public void makeDeposit(Transaction deposit) {
-    	this.deposit = deposit;
-    	// storing total deposits
-    	totalDeposits= totalDeposits + deposit.getAmount();
-    }
-    public void makeWithdrawal(Transaction withdrawal) {
-    	this.withdrawal = withdrawal; // might not need it
-    	totalWithdrawals = totalWithdrawals + withdrawal.getAmount();
-    }
-    public static double totalWithdrawals() {
-    	return totalWithdrawals;    	
-    }
-    public static double totalDeposits() {
-    	return totalDeposits;
-    }
-    public double getBalance() {
-    	return totalDeposits - totalWithdrawals;
-    }
-    //returns interest according to the balance
-    public double getInterestAmount() {
-    	return getBalance() * getInterest();
-    }
-    public double getTotalBalance() {
-    	return getBalance() + getInterestAmount();
-    }
 	@Override
 	public String toString() {
 		return "Market Account Transaction: ";

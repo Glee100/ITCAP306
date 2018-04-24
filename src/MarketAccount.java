@@ -22,7 +22,13 @@ public class MarketAccount extends Account{
     }
 	@Override
 	public String toString() {
-		return "Market Account Transaction: ";
+    	return "Market Account Information"
+    			+ "\nAccount Number: " + getAccountNumber()
+    			+ "\nFirst Name: " + getCustomer().getFirstName()
+    			+ "\nLast Name: " + getCustomer().getLastName()
+    			+ "\nTotal Balance: " + getBalance()
+    			+ "\nTotal Interest: " + getInterestAmount()
+    			+ "\nGrand Total Balance: " + getTotalBalance();
 	}
     
 }

@@ -24,7 +24,7 @@ public class Checking extends Account{
     	}
     }
     //returns interest according to the balance
-    public void setInterest() {
+    public void setInterest(double interest) {
     	this.interest = CHECKING_INTEREST;
     }
     public double getInterest() {
@@ -35,5 +35,4 @@ public class Checking extends Account{
 		return "Checking Account Transaction: ";
 		
 	}
-    
 }

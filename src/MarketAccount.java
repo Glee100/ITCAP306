@@ -6,8 +6,6 @@ public class MarketAccount extends Account{
 	private final double BALANCE_INTEREST = 0.04;// for now
 	private final double BALANCE_INTEREST_MAX = 0.30;
 	public final int INTEREST_BALANCE_FIXED = 75000;
-	private static double totalDeposits = 0;
-	private static double totalWithdrawals = 0;
     public MarketAccount(Customer customer, String date, int accountNumber){
     	super(customer, date, accountNumber);
     }
@@ -25,7 +23,6 @@ public class MarketAccount extends Account{
 	@Override
 	public String toString() {
 		return "Market Account Transaction: ";
-		
 	}
     
 }

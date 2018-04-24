@@ -7,12 +7,10 @@ public class Savings extends Account{
 	private final double BALANCE_INTEREST = 0.03;// for now
 	private final double BALANCE_INTEREST_MAX = 0.25;
 	public final int INTEREST_BALANCE_FIXED = 50000;
-	private static double totalDeposits = 0;
-	private static double totalWithdrawals = 0;
     public Savings(Customer customer, String date, int accountNumber, Transaction deposit){
     	super(customer, date, accountNumber);
     	this.deposit = validateMinDeposit(deposit);
-    	totalDeposits= totalDeposits + deposit.getAmount();
+    	Account.setDeposit(deposit);
     }
     // cannot create without min deposit
     public Transaction validateMinDeposit(Transaction deposit) {
@@ -33,31 +31,6 @@ public class Savings extends Account{
     }
     public double getInterest(){
     	return this.interest;
-    }
-    public void makeDeposit(Transaction deposit) {
-    	this.deposit = deposit;
-    	// storing total deposits
-    	totalDeposits= totalDeposits + deposit.getAmount();
-    }
-    public void makeWithdrawal(Transaction withdrawal) {
-    	this.withdrawal = withdrawal; // might not need it
-    	totalWithdrawals = totalWithdrawals + withdrawal.getAmount();
-    }
-    public static double totalWithdrawals() {
-    	return totalWithdrawals;    	
-    }
-    public static double totalDeposits() {
-    	return totalDeposits;
-    }
-    public double getBalance() {
-    	return totalDeposits - totalWithdrawals;
-    }
-    //returns interest according to the balance
-    public double getInterestAmount() {
-    	return getBalance() * getInterest();
-    }
-    public double getTotalBalance() {
-    	return getBalance() + getInterestAmount();
     }
 	@Override
 	public String toString() {

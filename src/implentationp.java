@@ -61,7 +61,7 @@ public class implentationp
 	 //login must be valid in order to access the program
 	 if(validLogin)
 	 {
-		 Menu();
+		 Menu(customer1);
 	 }
 	 
      //if true
@@ -91,6 +91,8 @@ public class implentationp
 	 */
 	 
 	 //find and return existing accounts for the customer
+	 
+	 //give option to create accounts that dont exist
 	 
 	 
  	return null;

@@ -1,3 +1,5 @@
+import java.util.Map;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -10,9 +12,10 @@ public class implentationp
 {
     // instance variables - replace the example below with your own
  public static void main(String[] args){
-	 
-     Login input1 = new Login("customer1","123");
-     
+	 Map<String, Login> logins = new HashMap<String, Login>();
+	 logins.put("customer1", new Login("customer1", "123"));
+	 logins.put("customer2", new Login("customer2", "124"));
+	 logins.put("customer3", new Login("customer3", "125"));    
      //if true
      //customer1, john, etc,
      //tokens
@@ -28,12 +31,12 @@ public class implentationp
 	 /*Customer c = new Customer(JOptionPane.showInputDialog(null,"First Name"),JOptionPane.showInputDialog(null,"Last Name"), 
 			 					JOptionPane.showInputDialog(null,"Address"), JOptionPane.showInputDialog(null,"Phone"), 
 			 							JOptionPane.showInputDialog(null,"email"));*/
-	 Customer c = new Customer("Yamil","Castro","Manassas","123","y@gmu.edu");
+	 Customer customer = new Customer("Yamil","Castro","Manassas","123","y@gmu.edu");
 	 
 	/* Account a = new Checking(c,new Transaction(JOptionPane.showInputDialog(null,"Transaction Date")), 
 			     JOptionPane.showInputDialog(null,"Enter deposit"));	*/
-	 Account a = new Checking(c, "12/12/12", 100);
- 	return 
+	 Account a = new Checking(customer, "12/12/12", new Transaction("12/12/12",100));
+ 	return a;
  }
  public static void Menu(String[] Array) {
 	 

@@ -27,7 +27,7 @@ public class Login{
     		return true;   
     }*/
     
-    public boolean validate(Login userInput, Map<String, Login> logins ){
+    public boolean validate(Login userInput, Map<Login, Customer> logins ){
     	
     	//create iterator of the logins Map
     	Iterator it = logins.entrySet().iterator();
@@ -35,10 +35,10 @@ public class Login{
     	//while there is a next pair
     	while(it.hasNext())
     	{
-    		Map.Entry<String,Login> entry = (Map.Entry<String,Login>)it.next();
+    		Map.Entry<Login, Customer> entry = (Map.Entry<Login, Customer>)it.next();
     		
     		//if the user input username and password matches a login in the map, return true
-    		if(entry.getKey() == userInput.getUserName() && entry.getValue().getPassword() == userInput.getPassword())
+    		if(entry.getKey().getUserName() == userInput.getUserName() && entry.getKey().getPassword() == userInput.getPassword())
     		{
     			return true;
     		}

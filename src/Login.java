@@ -1,8 +1,6 @@
 import java.util.Iterator;
 import java.util.Map;
 
-import Q1.User;
-
 public class Login{
 	
     private String userName;

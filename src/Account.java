@@ -8,7 +8,7 @@ public abstract class Account{
     final static int MIN_TRANS = 1;
 	private static double totalDeposits = 0;
 	private static double totalWithdrawals = 0;
-    public Account(Customer customer, String date, int accountNumber){
+    public Account(Customer customer, String date){
     	this.customer = customer;
     	accountNumber = accountNumber + 1;
     	

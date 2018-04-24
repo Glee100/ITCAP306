@@ -9,8 +9,8 @@ public class Checking extends Account{
     public final double CHECKING_INTEREST = 0.05;
 	public final int INTEREST_BALANCE_FIXED = 50000;
 	//total deposits made to checkings acc
-    public Checking(Customer customer, String date, int accountNumber, Transaction deposit){
-    	super(customer, date, accountNumber);
+    public Checking(Customer customer, String date, Transaction deposit){
+    	super(customer, date);
     	//validates min deposit or throws exception
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);

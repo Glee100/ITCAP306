@@ -7,8 +7,8 @@ public class Savings extends Account{
 	private final double BALANCE_INTEREST = 0.03;// for now
 	private final double BALANCE_INTEREST_MAX = 0.25;
 	public final int INTEREST_BALANCE_FIXED = 50000;
-    public Savings(Customer customer, String date, int accountNumber, Transaction deposit){
-    	super(customer, date, accountNumber);
+    public Savings(Customer customer, String date, Transaction deposit){
+    	super(customer, date);
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);
     }

@@ -14,6 +14,38 @@ public class Customer{
 	   
     }
    
+   //getters
+   
+   //get first name
+   public String getFirstName()
+   {
+	   return this.fName;
+   }
+   
+   //get last name
+   public String getLastName()
+   {
+	   return this.lName;
+   }
+   
+   //get address
+   public String getAddress()
+   {
+	   return this.address;
+   }
+   
+   //get phone number
+   public String getPhone()
+   {
+	   return this.phone;
+   }
+   
+   //get email
+   public String getEmail()
+   {
+	   return this.email;
+   }
+   
    //set first name
    public void setFirstName(String name)
    {

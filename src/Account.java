@@ -61,7 +61,7 @@ public abstract class Account{
     	this.customer = cus;
     }
     //set interest
-    public abstract void setInterest(int interest);
+    public abstract void setInterest(double interest);
     
     //get account number
     public static int getAccountNumber()

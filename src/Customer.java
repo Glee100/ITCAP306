@@ -9,9 +9,15 @@ public class Customer{
 	public final int MIN_NAME_LENGTH = 1;
 	public final int PHONE_LENGTH = 10;
 	
-   //constructor
+   //constructor  
+
+	
    public Customer(String fName,String lName, String address, String phone, String email){
-	   
+	   this.fName = fName;
+	   this.lName = lName;
+	   this.address = address;
+	   this.phone = phone;
+	   this.email = email;
     }
    
    //getters

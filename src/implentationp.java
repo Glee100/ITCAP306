@@ -15,34 +15,34 @@ public class implentationp
  public static void main(String[] args){
 	 
 	 //map with login as key, and arraylist of customer and accounts as value
-	 Map<Login, Vector<Object> > logins = new HashMap<Login, Vector<Object>>();
+	 HashMap<Login, Vector<Account> > logins = new HashMap<Login, Vector<Account>>();
 	 
 	 //create customers
 	 Customer customer1 = new Customer("Yamil","Castro","Manassas","123","y@gmu.edu");
 	 Customer customer2 = new Customer("Gene","Lee","Manassas","124","g@gmu.edu");
 	 Customer customer3 = new Customer("John","Smith","Manassas","125","j@gmu.edu");
-	 
+	 Login L = new Login("customer1","123");///
 	 //populate the map
-	 logins.put(new Login("customer1", "123"),new Vector<Object>(){{
-		    add(customer1);
+	 logins.put(new Login("customer1", "123"),new Vector<Account>(){{
 		    add(new Checking(customer1, "12/12/12", new Transaction("12/12/12",600)));
 		    add(new Savings(customer1, "12/13/12", new Transaction("12/13/12",800)));
 		    add(new MarketAccount(customer1,"12/14/12"));
 		}});
 	 
-	 logins.put(new Login("customer2", "124"),new Vector<Object>(){{
-		    add(customer2);
+	 logins.put(new Login("customer2", "124"),new Vector<Account>(){{
+
 		    add(new MarketAccount(customer2,"12/14/12"));
 		}});
 	 
-	 logins.put(new Login("customer3", "125"),new Vector<Object>(){{
-		    add(customer3);
+	 logins.put(new Login("customer3", "125"),new Vector<Account>(){{
+
 		    add(new Checking(customer3, "12/12/12", new Transaction("12/12/12",600)));
 		    add(new Savings(customer3, "12/13/12", new Transaction("12/13/12",800)));
 		}});
-	 
+	 //System.out.println(logins);
+	 System.out.println(logins.containsKey(L));
 
-	 
+	 System.out.println(logins.entrySet().toString());
 	 boolean validLogin = false;
 	 
 	 //while validLogin is false
@@ -75,10 +75,11 @@ public class implentationp
      
     }
  // change parameters
- public static Account[] createAccount(Customer customer) {
-	 /*Customer c = new Customer(JOptionPane.showInputDialog(null,"First Name"),JOptionPane.showInputDialog(null,"Last Name"), 
+ public static Customer createAccount() {
+	 
+	 Customer c = new Customer(JOptionPane.showInputDialog(null,"First Name"),JOptionPane.showInputDialog(null,"Last Name"), 
 			 					JOptionPane.showInputDialog(null,"Address"), JOptionPane.showInputDialog(null,"Phone"), 
-			 							JOptionPane.showInputDialog(null,"email"));*/
+			 							JOptionPane.showInputDialog(null,"email"));
 
 	/* Account a = new Checking(c,new Transaction(JOptionPane.showInputDialog(null,"Transaction Date")), 
 			     JOptionPane.showInputDialog(null,"Enter deposit"));	*/
@@ -97,7 +98,6 @@ public class implentationp
 	 
  	return null;
  }
- 
  public static void Menu(Customer customer) {
 		 
 		 ArrayList<String> optionList = new ArrayList<String>();

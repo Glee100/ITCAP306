@@ -1,6 +1,5 @@
-import java.util.Map;
 import java.util.*;
-import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -39,30 +38,71 @@ public class implentationp
 		    add(new Checking(customer3, "12/12/12", new Transaction("12/12/12",600)));
 		    add(new Savings(customer3, "12/13/12", new Transaction("12/13/12",800)));
 		}});
+<<<<<<< HEAD
 	 //System.out.println(logins);
 	 System.out.println(logins.containsKey(L));
 
 	 System.out.println(logins.entrySet().toString());
 	 boolean validLogin = false;
+=======
 	 
-	 //while validLogin is false
-	 while(!validLogin)
-	 {
-		 //validate login and set boolean to validLogin
-		 validLogin = Login(logins);
+	 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
+	 System.out.println(logins.get(new Login("customer3", "125")).elementAt(0));
+	 
+>>>>>>> 43fa1c467f5c4faefccdff88fde9ebb693a5fe0a
+	 
+
+	 //print everything in map
+ 	Iterator it = logins.entrySet().iterator();
+	
+ 	//while there is a next pair
+ 	while(it.hasNext())
+ 	{
+ 		Map.Entry<Login, Vector<Object>> entry = (Map.Entry<Login, Vector<Object>>)it.next();
+ 		
+ 		System.out.println(entry.getKey().getUserName()+ "  " + entry.getKey().getPassword() );
+ 	
+ 	}
+	 
+	 
+ 	//initialize temporary Login object
+ 	Login x = null;
+ 	boolean isValid = false;
+	 
+	 try {
+		 x = CreateLogin();
 		 
-		 if(!validLogin)
+		 //will return illegal argument exception if login is invalid
+		 isValid = Login.validate(x, logins);
+		 
+		 //call menu method with customer associated with the login
+		 
+		 //get value of the specific login
+		 
+		 if(isValid)
 		 {
-			 String again = JOptionPane.showInputDialog("You're login is incorrect. If you don't want to try again, enter 'N'.");
-			 if(again.equalsIgnoreCase("N")) {break;}
+			 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
+			Customer c = (Customer) logins.get(x).firstElement();
+			 
+			 System.out.println(c.getFirstName() + " " + c.getLastName());
 		 }
+
+		 //Menu(d);
+
+
 	 }
+	 catch(IllegalArgumentException e)
+	 {
+		 JOptionPane.showMessageDialog(null, e.getMessage());
+	 }
+	 
+	 
 	 
 	 //login must be valid in order to access the program
-	 if(validLogin)
+	 /*if(validLogin)
 	 {
 		 Menu(customer1);
-	 }
+	 }*/
 	 
      //if true
      //customer1, john, etc,
@@ -141,14 +181,14 @@ public class implentationp
 /*
  * Static method that handles logins
  * */
-public static boolean Login(Map<Login, Vector<Object>> logins)
+public static Login CreateLogin()
 {
 	 String username = JOptionPane.showInputDialog("Enter Username: ");
 	 String password = JOptionPane.showInputDialog("Enter password: ");
 	 
 	 Login log = new Login(username, password);
 	 
-	 return log.validate(log, logins);
+	 return log;
 }
  
 }

@@ -7,8 +7,28 @@ public class Login{
     private String userName;
     private String password;
     
+    @Override
+    public int hashCode() {
+        return hashCode();
+    }
+    
+     @Override
+    public boolean equals(Object obj){
+        System.out.println("In equals");
+        if (obj instanceof Login) {
+            Login l = (Login) obj;
+            return (l.getUserName().equals(this.getUserName()) && l.getPassword() == this.getPassword());
+        } else {
+            return false;
+        }
+    }
+    
     //use files to retrieve customer's data
     public Login(String userName, String password){
+    	//setUserName(userName);
+    	//setPassword(password);
+    	this.userName = userName;
+    	this.password = password;
     }
     public String getUserName(){
         return this.userName;
@@ -50,24 +70,57 @@ public class Login{
     }*/
     
     
-    public boolean validate(Login userInput, Map<Login, Vector<Object>> logins ){
+    public static boolean validate(Login userInput, Map<Login, Vector<Object>> logins ){
     	
     	//create iterator of the logins Map
     	Iterator it = logins.entrySet().iterator();
+    	
+    	boolean isValid = false;
     	
     	//while there is a next pair
     	while(it.hasNext())
     	{
     		Map.Entry<Login, Vector<Object>> entry = (Map.Entry<Login, Vector<Object>>)it.next();
     		
-    		//if the user input username and password matches a login in the map, return true
-    		if(entry.getKey().getUserName() == userInput.getUserName() && entry.getKey().getPassword() == userInput.getPassword())
+    		//System.out.println("ENTRY KEY USERNAME " + entry.getKey().getUserName() + "    ENTRY KEY PASSWORD " + entry.getKey().getPassword());
+    		
+    		//System.out.println("USER INPUT USERNAME: " + userInput.getUserName() + "    USER INPUT PASSWORD: :" + userInput.getPassword());
+    		
+    		
+    		//if the user input username and password does not match a login in the map, throw exception
+    		
+    		String entryUsername = entry.getKey().getUserName();
+    		String entryPass = entry.getKey().getPassword();
+    		
+    		String inputUsername = userInput.getUserName();
+    		String inputPass = userInput.getPassword();
+    		
+    		System.out.println("USR: " + entryUsername.equals(inputUsername));
+    		System.out.println("PASS: " + entryPass.equals(inputPass));
+    		
+    		System.out.println("INPUT USERNAME: " + inputUsername);
+    		System.out.println("ENTRY USERNAME: " + entryUsername);
+    		
+    		if(!entryUsername.equalsIgnoreCase(inputUsername) || !entryPass.equals(inputPass))
     		{
-    			return true;
+        		System.out.println("VALIDATE" + entry.getKey().getUserName().equals(userInput.getUserName()) );
+        		System.out.println(entry.getKey().getPassword().equals(userInput.getPassword()));
+    			
+    			//
+        		
+    		}
+    		else {
+    			isValid = true;
     		}
     	}
     	
-    	return false;
+    	if(!isValid)
+    	{
+    		throw new IllegalArgumentException("Error. Incorrect login credentials.");
+    	}
+    	
+    	return isValid;
+
     }
     
     public String toString()

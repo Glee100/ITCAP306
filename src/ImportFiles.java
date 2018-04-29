@@ -2,35 +2,41 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class ImportFiles {
-
+/*
 	public static void main(String [] args)
 	{
-	    File file = new File("ImportCustomers.txt");
+		
+		HashMap<Login, Vector<Account>> logins = new HashMap<Login, Vector<Account>>();
+		
+		String path = "./src/ImportCustomers.txt";
+ 
+	    readFromFile(path, logins);
+	    
+	    
+		 //print everything in map
+	 	Iterator it = logins.entrySet().iterator();
+		System.out.println("\n\nLogins Inside Hashmap: \n");
+	 	//while there is a next pair
+	 	while(it.hasNext())
+	 	{
+	 		Map.Entry<Login, Vector<Account>> entry = (Map.Entry<Login, Vector<Account>>)it.next();
+	 		
+	 		System.out.println(entry.getKey().getUserName()+ "  " + entry.getKey().getPassword() );
+	 	
+	 	}
 
-	    try {
-
-	        Scanner sc = new Scanner(file);
-
-	        while (sc.hasNextLine()) {
-	            int i = sc.nextInt();
-	            System.out.println(i);
-	        }
-	        sc.close();
-	    } 
-	    catch (FileNotFoundException e) {
-	        e.printStackTrace();
-	    }
-	}
+	}*/
 	
 	
-	//STRIP QUOTES
-	//string = string.replace("\"", "");
-	
-	
-	public static void readFromFile(String path){
+	public static void readFromFile(String path, HashMap<Login, Vector<Account>> logins){
 		try{
 			String line =null; 
 			Scanner scan =new Scanner(new FileInputStream(new File(path)));  
@@ -54,43 +60,90 @@ public class ImportFiles {
 				
 				Customer cus = new Customer(fName,lName, address, phone, email);
 				
+				//TESTING
+				System.out.println("\nCUSTOMER NAME " + cus.getFirstName() + " " + cus.getLastName());
 				
-				Account account;
+				Account checkingAccount;
+				Account savingsAccount;
+				Account marketAccount;
 				String date = "";
 				Transaction transaction = null;
 				
-				try {
-					String acct;
-					acct = scan2.next().trim();
-					if(acct.equals("Checking"))
-					{
-						date = scan2.next().trim();
-						transaction = new Transaction(date, Double.parseDouble(scan2.next()));
-						account = new Checking(cus, date, transaction);
-					}
-					else if(acct.equals("Savings"))
-					{
-						date = scan2.next().trim();
-						transaction = new Transaction(date, Double.parseDouble(scan2.next()));
-						account = new Savings(cus, date, transaction);
-					}
-					else if(acct.equals("MarketAccount"))
-					{
-						date = scan2.next().trim();
-						account = new MarketAccount(cus, date);
-					}
-					
-					
-				}
-				catch(Exception e)
-				{
-					e.getMessage();
-				}
+				Login newLogin = new Login(user, password);
 				
+				//initialize Key Value set in logins hashmap
+				logins.put(newLogin, new Vector<Account>() {{
+
+				}});
+				
+				//in text file, we will always having the order checking, then savings, then market account, so if statements will work
+				
+					try {
+						if(scan2.hasNext(" Checking"))
+						{
+							System.out.println("HAS CHECKING ACCOUNT");
+							
+							//we dont need accountType, it is used to store text we dont need
+							String accountType = scan2.next().trim();
+							
+							date = scan2.next().trim();
+							transaction = new Transaction(date, Double.parseDouble(scan2.next()));
+							checkingAccount = new Checking(cus, date, transaction);
+							
+							//add checking account to the hashmap
+							if (logins.containsKey(newLogin))
+							{
+								logins.get(newLogin).add(checkingAccount);
+							}
+
+						}
+						if(scan2.hasNext(" Savings"))
+						{
+							System.out.println("HAS SAVINGS ACCOUNT");
+							
+							//we dont need accountType, it is used to store text we dont need
+							String accountType = scan2.next().trim();
+							
+							date = scan2.next().trim();
+							transaction = new Transaction(date, Double.parseDouble(scan2.next()));
+							savingsAccount = new Savings(cus, date, transaction);
+							
+							//add savings account to the hashmap
+							if (logins.containsKey(newLogin))
+							{
+								logins.get(newLogin).add(savingsAccount);
+							}
+
+						}
+						if(scan2.hasNext(" MarketAccount"))
+						{
+							System.out.println("HAS MARKET ACCOUNT");
+							
+							//we dont need accountType, it is used to store text we dont need
+							String accountType = scan2.next().trim();
+							
+							date = scan2.next().trim();
+							marketAccount = new MarketAccount(cus, date);
+							
+							//add market account to the hashmap
+							if (logins.containsKey(newLogin))
+							{
+								logins.get(newLogin).add(marketAccount);
+							}
+						}
+
+					}
+					catch(Exception e)
+					{
+						e.getMessage();
+					}
+
 
 				//students[counter++]=s;
+				
 				System.out.println(line);
 			}
+			scan.close(); 
 		}
 		catch(FileNotFoundException e){
 			e.printStackTrace(); 
@@ -99,5 +152,35 @@ public class ImportFiles {
 			e.printStackTrace(); 
 		}
 
+
 	}
 }
+
+
+/*
+ * EXAMPLE of how to initialize hashmap
+ * 
+//create customers
+Customer customer1 = new Customer("Yamil","Castro","Manassas","123","y@gmu.edu");
+Customer customer2 = new Customer("Gene","Lee","Manassas","124","g@gmu.edu");
+Customer customer3 = new Customer("John","Smith","Manassas","125","j@gmu.edu");
+Login L = new Login("customer1","123");///
+
+//populate the map
+logins.put(new Login("customer1", "123"),new Vector<Account>(){{
+	    add(new Checking(customer1, "12/12/12", new Transaction("12/12/12",600)));
+	    add(new Savings(customer1, "12/13/12", new Transaction("12/13/12",800)));
+	    add(new MarketAccount(customer1,"12/14/12"));
+	}});
+
+logins.put(new Login("customer2", "124"),new Vector<Account>(){{
+
+	    add(new MarketAccount(customer2,"12/14/12"));
+	}});
+
+logins.put(new Login("customer3", "125"),new Vector<Account>(){{
+
+	    add(new Checking(customer3, "12/12/12", new Transaction("12/12/12",600)));
+	    add(new Savings(customer3, "12/13/12", new Transaction("12/13/12",800)));
+	}});
+*/

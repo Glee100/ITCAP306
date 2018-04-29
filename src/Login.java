@@ -8,11 +8,6 @@ public class Login{
     private String userName;
     private String password;
     
-    @Override
-    public int hashCode() {
-    	return Objects.hashCode(this.userName, this.password);
-    }
-    
      @Override
     public boolean equals(Object obj){
         System.out.println("In equals");
@@ -71,7 +66,7 @@ public class Login{
     }*/
     
     
-    public static boolean validate(Login userInput, Map<Login, Vector<Object>> logins ){
+    public static boolean validate(Login userInput, Map<Login, Vector<Account>> logins ){
     	
     	//create iterator of the logins Map
     	Iterator it = logins.entrySet().iterator();

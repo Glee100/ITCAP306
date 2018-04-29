@@ -1,5 +1,6 @@
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Vector;
 
 public class Login{
@@ -9,7 +10,7 @@ public class Login{
     
     @Override
     public int hashCode() {
-        return hashCode();
+    	return Objects.hashCode(this.userName, this.password);
     }
     
      @Override

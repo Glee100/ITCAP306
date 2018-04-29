@@ -1,6 +1,8 @@
 //public abstract class Account extends Login{
 public abstract class Account{
-    private static int accountNumber = 100; 
+	public static final int MAX_NUM_ACC= 3;
+    private static int accountNumberCreator = 100;
+    private int accountNumber;
     double interest;
     private Transaction deposit;
     private Transaction withdrawal;
@@ -10,7 +12,9 @@ public abstract class Account{
 	private static double totalWithdrawals = 0;
     public Account(Customer customer, String date){
     	this.customer = customer;
-    	accountNumber = accountNumber + 1;
+    	accountNumberCreator++;//
+    	//increase the account number and stores it in account number
+    	this.accountNumber = accountNumberCreator;//
     	
     }
     public static void setDeposit(Transaction deposit) {
@@ -64,9 +68,9 @@ public abstract class Account{
     public abstract void setInterest(double interest);
     
     //get account number
-    public static int getAccountNumber()
+    public int getAccountNumber()
     {
-    	return accountNumber;
+    	return this.accountNumber;
     }
     
     //get customer

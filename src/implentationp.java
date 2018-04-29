@@ -38,18 +38,18 @@ public class implentationp
 		    add(new Checking(customer3, "12/12/12", new Transaction("12/12/12",600)));
 		    add(new Savings(customer3, "12/13/12", new Transaction("12/13/12",800)));
 		}});
-<<<<<<< HEAD
+
 	 //System.out.println(logins);
 	 System.out.println(logins.containsKey(L));
 
 	 System.out.println(logins.entrySet().toString());
 	 boolean validLogin = false;
-=======
+
 	 
 	 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
 	 System.out.println(logins.get(new Login("customer3", "125")).elementAt(0));
 	 
->>>>>>> 43fa1c467f5c4faefccdff88fde9ebb693a5fe0a
+
 	 
 
 	 //print everything in map
@@ -116,13 +116,13 @@ public class implentationp
     }
  // change parameters
  public static Customer createAccount() {
-	 
+	 // creates a customer
 	 Customer c = new Customer(JOptionPane.showInputDialog(null,"First Name"),JOptionPane.showInputDialog(null,"Last Name"), 
 			 					JOptionPane.showInputDialog(null,"Address"), JOptionPane.showInputDialog(null,"Phone"), 
 			 							JOptionPane.showInputDialog(null,"email"));
 
-	/* Account a = new Checking(c,new Transaction(JOptionPane.showInputDialog(null,"Transaction Date")), 
-			     JOptionPane.showInputDialog(null,"Enter deposit"));	*/
+	Account a = new Checking(c,new Transaction(JOptionPane.showInputDialog(null,"Transaction Date")), 
+			     JOptionPane.showInputDialog(null,"Enter deposit"));
 	 
 	 
 	 /*

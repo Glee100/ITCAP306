@@ -309,45 +309,143 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 
 /*
  * The customer can create additional accounts if they dont exist yet.
+ * find and return existing accounts for the customer
+ * give option to create accounts that dont exist
+ * 
  * */
 public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<Account> > logins)
 {
-	 //find and return existing accounts for the customer
-	 
-	 //give option to create accounts that dont exist
-	
-	
 		String customerFirstName = logins.get(customerLogin).firstElement().getCustomer().getFirstName();
+
+		Account a = null;
 		
-		//count how many accounts customer has
-		final int NUM_ACCOUNTS = logins.get(customerLogin).size();
+		Customer cust = logins.get(customerLogin).firstElement().getCustomer();
 		
-		boolean hasCheckingAccount = false;
-		boolean hasSavingsAccount = false;
-		boolean hasMarketAccount = false;
-		
-		//identify what type of accounts already exist for the customer
-		for(int i = 0; i<NUM_ACCOUNTS; i++)
-		{
-			//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
-			if(logins.get(customerLogin).get(i) instanceof Checking)
+		//--------------------------------------------------------------------
+		do {
+			
+			//count how many accounts customer has
+			final int NUM_ACCOUNTS = logins.get(customerLogin).size();
+			
+			boolean hasCheckingAccount = false;
+			boolean hasSavingsAccount = false;
+			boolean hasMarketAccount = false;
+			
+			//identify what type of accounts already exist for the customer
+			for(int i = 0; i<NUM_ACCOUNTS; i++)
 			{
-				hasCheckingAccount = true;
+				//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
+				if(logins.get(customerLogin).get(i) instanceof Checking)
+				{
+					hasCheckingAccount = true;
+				}
+				else if(logins.get(customerLogin).get(i) instanceof Savings)
+				{
+					hasSavingsAccount = true;
+				}
+				else if(logins.get(customerLogin).get(i) instanceof MarketAccount)
+				{
+					hasMarketAccount = true;
+				}
 			}
-			else if(logins.get(customerLogin).get(i) instanceof Savings)
-			{
-				hasSavingsAccount = true;
-			}
-			else if(logins.get(customerLogin).get(i) instanceof MarketAccount)
-			{
-				hasMarketAccount = true;
-			}
-		}
-		
-		//if the customer doesnt have a type of account, give option to create that account
-	
-	
-	
+			
+			
+			//Menu for the user to create a new account
+			 ArrayList<String> optionList = new ArrayList<String>();
+				
+			 optionList.add("Checking Account");
+			 optionList.add("Savings Account");
+			 optionList.add("Money Market Account");
+			 optionList.add("Exit");
+			 Object[] options = optionList.toArray();
+			 int value = JOptionPane.showOptionDialog(
+			                 null,
+			                 "What kind of account do you want to create?",
+			                 "Pick",
+			                 JOptionPane.YES_NO_OPTION,
+			                 JOptionPane.QUESTION_MESSAGE,
+			                 null,
+			                 options,
+			                 optionList.get(0));
+
+			 String opt = optionList.get(value);
+			 
+			 
+			 switch(opt)
+			 {
+			 case "Checking Account": //If the user selects 1 -- 
+					//creates a checking account
+				 	if(!hasCheckingAccount)
+				 	{
+				 		String date = JOptionPane.showInputDialog("Transaction Date: ");
+				 		
+						a = new Checking(cust,date,
+							 	new Transaction(date,
+								Double.parseDouble(JOptionPane.showInputDialog("amount"))));
+					
+						//add account to hashmap
+						if (logins.containsKey(customerLogin))
+						{
+							logins.get(customerLogin).add(a);
+						}
+				 	}
+				 	else
+				 	{
+				 		JOptionPane.showMessageDialog(null, "Checking account already exists");
+				 	}
+				 	
+
+					break;
+			 case "Money Market Account":
+					//creates a MarketAccount account
+				 	if(!hasMarketAccount)
+				 	{
+						a = new MarketAccount(cust,JOptionPane.showInputDialog("Transaction Date"));
+						
+						//add account to hashmap
+						if (logins.containsKey(customerLogin))
+						{
+							logins.get(customerLogin).add(a);
+						}
+				 	}
+				 	else
+				 	{
+				 		JOptionPane.showMessageDialog(null, "Market account already exists");
+				 	}
+
+					
+					break;
+			 case "Savings Account": //If the user selects 3 
+					//creates a savings account
+				 	if(!hasSavingsAccount)
+				 	{
+				 		String date = JOptionPane.showInputDialog("Transaction Date: ");
+				 		
+					    a = new Savings(cust,date,
+								new Transaction(date,
+								Double.parseDouble(JOptionPane.showInputDialog("amount"))));
+					    
+						//add account to hashmap
+						if (logins.containsKey(customerLogin))
+						{
+							logins.get(customerLogin).add(a);
+						}
+				 	}
+				 	else
+				 	{
+				 		JOptionPane.showMessageDialog(null, "Savings account already exists");
+				 	}
+
+					
+					break;
+			 case "Exit": //Exit, exit the program
+			 System.exit(0);
+			 default:
+				 break;
+			 }
+			
+			 }while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
+
 	
 }
 
@@ -357,8 +455,41 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
  *  total interest, and grand total balance for each account for each type of account.
  * 
  * */
-public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Account> > logins)
+public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Account>> logins)
 {
+	//count how many accounts customer has
+	final int NUM_ACCOUNTS = logins.get(customerLogin).size();
+	
+	boolean hasCheckingAccount = false;
+	boolean hasSavingsAccount = false;
+	boolean hasMarketAccount = false;
+	
+	int checkingAccountIndex = -1;
+	int savingsAccountIndex = -1;
+	int marketAccountIndex = -1;
+	
+	//identify what type of accounts already exist for the customer
+	for(int i = 0; i<NUM_ACCOUNTS; i++)
+	{
+		//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
+		if(logins.get(customerLogin).get(i) instanceof Checking)
+		{
+			hasCheckingAccount = true;
+			checkingAccountIndex = i;
+		}
+		else if(logins.get(customerLogin).get(i) instanceof Savings)
+		{
+			hasSavingsAccount = true;
+			savingsAccountIndex = i;
+		}
+		else if(logins.get(customerLogin).get(i) instanceof MarketAccount)
+		{
+			hasMarketAccount = true;
+			marketAccountIndex = i;
+		}
+	}
+	
+	
 	 do {
 
 	 ArrayList<String> optionList = new ArrayList<String>();
@@ -383,18 +514,35 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 	 
 	 switch(Integer.parseInt(opt))
 	 {
-	 case 1: //If the user selects 1 -- 
-			//display checking account toString
-		 
-		 
-		 //Find customer account
-		 	JOptionPane.showMessageDialog(null, "");
+	 case 1: //If the user selects 1 -- display Checking acount
+		 //if the customer has checking account, find it, and return toString
+			 if(hasCheckingAccount && (checkingAccountIndex != -1))
+			 {
+				 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(null, "You don't have a checking account");
+			 }
 			break;
 	 case 2:
 			//display MarketAccount account
+			 if(hasMarketAccount && (marketAccountIndex != -1))
+			 {
+				 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(null, "You don't have a money market account");
+			 }
 			break;
 	 case 3: //If the user selects 3 
 			//display savings account
+			 if(hasSavingsAccount&& (savingsAccountIndex != -1))
+			 {
+				 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(null, "You don't have a savings account");
+			 }
 		 break;
 	 case 4: //Exit, exit the program
 	 System.exit(0);
@@ -402,7 +550,7 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 		 break;
 	 }
 	
-	 }while(JOptionPane.showConfirmDialog(null,"Do you want to view another account ?", "Please select",JOptionPane.YES_NO_OPTION)==1);
+	 }while(JOptionPane.showConfirmDialog(null,"Do you want to view another account ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
 }
 
  

@@ -121,6 +121,6 @@ public class Login{
     
     public String toString()
     {
-    	return "";
+    	return "Username: " + getUserName() + "   Password: " + getPassword();
     }
 }

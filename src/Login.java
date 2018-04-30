@@ -91,8 +91,8 @@ public class Login{
     		String inputUsername = userInput.getUserName();
     		String inputPass = userInput.getPassword();
     		
-    		System.out.println("USR: " + entryUsername.equals(inputUsername));
-    		System.out.println("PASS: " + entryPass.equals(inputPass));
+    		System.out.println("\nUSR is equal: " + entryUsername.equals(inputUsername));
+    		System.out.println("PASS is equal: " + entryPass.equals(inputPass));
     		
     		System.out.println("INPUT USERNAME: " + inputUsername);
     		System.out.println("ENTRY USERNAME: " + entryUsername);

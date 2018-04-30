@@ -108,7 +108,7 @@ public class implentationp
      
     }
 
- public static void Menu(Customer customer, HashMap<Login, Vector<Account> > logins) {
+ public static void Menu(Login customerLogin, HashMap<Login, Vector<Account> > logins) {
 		 
 		 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -133,10 +133,10 @@ public class implentationp
 		 switch(Integer.parseInt(opt))
 		 {
 		 case 1: //If the user selects 1 -- create an account
-			 CreateBankAccount(customer, logins);
+			 CreateBankAccount(customerLogin, logins);
 			 break;
 		 case 2: //If the user selects 2 -- view accounts
-			 ViewAccounts(customer, logins);
+			 ViewAccounts(customerLogin, logins);
 			 break;
 		 case 3: //If the user selects 3 -- Exit, exit the program
 			 System.exit(0);
@@ -265,11 +265,44 @@ public static Vector<Account> createCustomerAccount(HashMap<Login, Vector<Accoun
 /*
  * The customer can create additional accounts if they dont exist yet.
  * */
-public static void CreateBankAccount(Customer customer, HashMap<Login, Vector<Account> > logins)
+public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<Account> > logins)
 {
 	 //find and return existing accounts for the customer
 	 
 	 //give option to create accounts that dont exist
+	
+	
+		String customerFirstName = logins.get(customerLogin).firstElement().getCustomer().getFirstName();
+		
+		//count how many accounts customer has
+		final int NUM_ACCOUNTS = 3;
+		
+		boolean hasCheckingAccount = false;
+		boolean hasSavingsAccount = false;
+		boolean hasMarketAccount = false;
+		
+		//identify what type of accounts already exist for the customer
+		for(int i = 0; i<NUM_ACCOUNTS; i++)
+		{
+			//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
+			if(logins.get(customerLogin).get(i) instanceof Checking)
+			{
+				hasCheckingAccount = true;
+			}
+			else if(logins.get(customerLogin).get(i) instanceof Savings)
+			{
+				hasSavingsAccount = true;
+			}
+			else if(logins.get(customerLogin).get(i) instanceof MarketAccount)
+			{
+				hasMarketAccount = true;
+			}
+		}
+		
+		//if the customer doesnt have a type of account, give option to create that account
+	
+	
+	
 	
 }
 
@@ -279,7 +312,7 @@ public static void CreateBankAccount(Customer customer, HashMap<Login, Vector<Ac
  *  total interest, and grand total balance for each account for each type of account.
  * 
  * */
-public static void ViewAccounts(Customer customer, HashMap<Login, Vector<Account> > logins)
+public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Account> > logins)
 {
 	 do {
 

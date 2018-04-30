@@ -320,7 +320,7 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 		String customerFirstName = logins.get(customerLogin).firstElement().getCustomer().getFirstName();
 		
 		//count how many accounts customer has
-		final int NUM_ACCOUNTS = 3;
+		final int NUM_ACCOUNTS = logins.get(customerLogin).size();
 		
 		boolean hasCheckingAccount = false;
 		boolean hasSavingsAccount = false;
@@ -388,7 +388,6 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 		 
 		 
 		 //Find customer account
-		 
 		 	JOptionPane.showMessageDialog(null, "");
 			break;
 	 case 2:

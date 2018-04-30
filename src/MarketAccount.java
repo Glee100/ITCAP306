@@ -6,8 +6,10 @@ public class MarketAccount extends Account{
 	private final double BALANCE_INTEREST = 0.04;// for now
 	private final double BALANCE_INTEREST_MAX = 0.30;
 	public final int INTEREST_BALANCE_FIXED = 75000;
+	public static int NUM_MARKET_ACC = 0;
     public MarketAccount(Customer customer, String date){
     	super(customer, date);
+    	NUM_MARKET_ACC++;
     }
     //returns interest according to the balance
     public void setInterest(double balance) {

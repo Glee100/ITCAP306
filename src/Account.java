@@ -1,6 +1,8 @@
 //public abstract class Account extends Login{
 public abstract class Account{
 	public static final int MAX_NUM_ACC= 3;
+	public static final int MAX_ACC_EACH = 1;
+	private int totalNumAcc;
     private static int accountNumberCreator = 100;
     private int accountNumber;
     double interest;
@@ -15,7 +17,8 @@ public abstract class Account{
     	accountNumberCreator++;//
     	//increase the account number and stores it in account number
     	this.accountNumber = accountNumberCreator;//
-    	
+    	//total number of accounts for each customer
+    	totalNumAcc++;
     }
     public static void setDeposit(Transaction deposit) {
     	// storing total deposits
@@ -33,6 +36,9 @@ public abstract class Account{
     public static double totalWithdrawals() {
     	return totalWithdrawals;
     	
+    }
+    public int getTotalNumAcc() {
+    	return this.totalNumAcc;
     }
     public static double totalDeposits() {
     	return totalDeposits;

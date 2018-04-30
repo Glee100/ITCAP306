@@ -33,8 +33,6 @@ public class implentationp
 	 //System.out.println(logins.get(new Login("customer3", "125")).elementAt(0));
 	 
 
-	 
-
 	 //print everything in map
 	 System.out.println("\n\n-----Logins In HashMap---------\n");
  	Iterator it = logins.entrySet().iterator();
@@ -47,67 +45,53 @@ public class implentationp
  		System.out.println(entry.getKey().getUserName()+ "  " + entry.getKey().getPassword() );
  	
  	}
+	
+ 	
+ 	//Login or create an account
+	 ArrayList<String> optionList = new ArrayList<String>();
+		
+	 optionList.add("1");
+	 optionList.add("2");
+	 optionList.add("3");
+
+	 Object[] options = optionList.toArray();
+	 int value = JOptionPane.showOptionDialog(
+	                 null,
+	                 "Please select an option:\n 1. Log in \n 2. Create New Account \n3. Exit",
+	                 "Pick",
+	                 JOptionPane.YES_NO_OPTION,
+	                 JOptionPane.QUESTION_MESSAGE,
+	                 null,
+	                 options,
+	                 optionList.get(0));
+
+	 String opt = optionList.get(value);
 	 
 	 
- 	//initialize temporary Login object
- 	Login x = null;
- 	boolean isValid = false;
-	 
-	 try {
-		 x = CreateLogin();
-		 
-		 //will return illegal argument exception if login is invalid
-		 isValid = Login.validate(x, logins);
-		 
-		 //call menu method with customer associated with the login
-		 
-		 //get value of the specific login
-		 
-		 if(isValid)
-		 {
-			 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
-			//Customer c = (Customer) logins.get(x).firstElement();
-			 
-			 //get customer
-				if (logins.containsKey(x))
-				{
-					System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
-				}
-				else {
-					System.out.println("\nKEY DOESNT MATCH");
-				}
-			 
-			// System.out.println(c.getFirstName() + " " + c.getLastName());
-		 }
-
-		 //Menu(d);
-
-
-	 }
-	 catch(IllegalArgumentException e)
+	 switch(Integer.parseInt(opt))
 	 {
-		 JOptionPane.showMessageDialog(null, e.getMessage());
+	 case 1: //If the user selects 1 -- attempt to log in
+		 AttemptLogin(logins);
+		 break;
+	 case 2: //If the user selects 2 -- create a new user account in the system
+		 CreateCustomerAccount(logins);
+		 break;
+	 case 3: //If the user selects 3 -- Exit, exit the program
+		 System.exit(0);
+		 break;
+	 default:
+		 break;
 	 }
-	 
-	 
-	 
-	 //login must be valid in order to access the program
-	 /*if(validLogin)
-	 {
-		 Menu(customer1);
-	 }*/
-	 
-     //if true
-     //customer1, john, etc,
-     //tokens
-     //Customer c = new Customer (//get data from file);
-     //menu
-    // Account s = new Checkings(///);
-     // for the other ones
-    // print(linkedlist);
+ 	
+ 	
+ 	
      
     }
 
+ /*
+  * 
+  * Menu displayed to the customer
+  * */
  public static void Menu(Login customerLogin, HashMap<Login, Vector<Account> > logins) {
 		 
 		 ArrayList<String> optionList = new ArrayList<String>();
@@ -162,11 +146,72 @@ public static Login CreateLogin()
 	 return log;
 }
 
+public static void AttemptLogin(HashMap<Login, Vector<Account> > logins)
+{
+	
+	//initialize temporary Login object
+	 	Login x = null;
+	 	boolean isValid = false;
+		 
+		 try {
+			 x = CreateLogin();
+			 
+			 //will return illegal argument exception if login is invalid
+			 isValid = Login.validate(x, logins);
+			 
+			 //call menu method with customer associated with the login
+			 
+			 //get value of the specific login
+			 
+			 if(isValid)
+			 {
+				 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
+				//Customer c = (Customer) logins.get(x).firstElement();
+				 
+				 //get customer
+					if (logins.containsKey(x))
+					{
+						System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
+					}
+					else {
+						System.out.println("\nKEY DOESNT MATCH");
+					}
+				 
+				// System.out.println(c.getFirstName() + " " + c.getLastName());
+			 }
+
+			 //Menu(d);
+
+
+		 }
+		 catch(IllegalArgumentException e)
+		 {
+			 JOptionPane.showMessageDialog(null, e.getMessage());
+		 }
+		 
+		 
+		 
+		 //login must be valid in order to access the program
+		 /*if(validLogin)
+		 {
+			 Menu(customer1);
+		 }*/
+		 
+	     //if true
+	     //customer1, john, etc,
+	     //tokens
+	     //Customer c = new Customer (//get data from file);
+	     //menu
+	    // Account s = new Checkings(///);
+	     // for the other ones
+	    // print(linkedlist);
+}
+
 
 /*
  * This method creates a new Customer, and allows the customer to create a checking, savings, and money market account
  * */
-public static Vector<Account> createCustomerAccount(HashMap<Login, Vector<Account> > logins) {
+public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
 	 Vector<Account> objVector = new Vector<Account>();
 	int counter = 1;
 	Customer c;

@@ -49,39 +49,46 @@ public class implentationp
  	
  	//Login or create an account
 	 ArrayList<String> optionList = new ArrayList<String>();
-		
+	 
+	 boolean loginWorks = false;
+	 
 	 optionList.add("1");
 	 optionList.add("2");
 	 optionList.add("3");
 
 	 Object[] options = optionList.toArray();
-	 int value = JOptionPane.showOptionDialog(
-	                 null,
-	                 "Please select an option:\n 1. Log in \n 2. Create New Account \n3. Exit",
-	                 "Pick",
-	                 JOptionPane.YES_NO_OPTION,
-	                 JOptionPane.QUESTION_MESSAGE,
-	                 null,
-	                 options,
-	                 optionList.get(0));
-
-	 String opt = optionList.get(value);
 	 
-	 
-	 switch(Integer.parseInt(opt))
+	 while(!loginWorks)
 	 {
-	 case 1: //If the user selects 1 -- attempt to log in
-		 AttemptLogin(logins);
-		 break;
-	 case 2: //If the user selects 2 -- create a new user account in the system
-		 CreateCustomerAccount(logins);
-		 break;
-	 case 3: //If the user selects 3 -- Exit, exit the program
-		 System.exit(0);
-		 break;
-	 default:
-		 break;
+		 int value = JOptionPane.showOptionDialog(
+                 null,
+                 "Please select an option:\n 1. Log in \n 2. Create New Account \n3. Exit",
+                 "Pick",
+                 JOptionPane.YES_NO_OPTION,
+                 JOptionPane.QUESTION_MESSAGE,
+                 null,
+                 options,
+                 optionList.get(0));
+
+		 String opt = optionList.get(value);
+		 
+		 
+		 switch(Integer.parseInt(opt))
+		 {
+		 case 1: //If the user selects 1 -- attempt to log in
+			 loginWorks = AttemptLogin(logins);
+			 break;
+		 case 2: //If the user selects 2 -- create a new user account in the system
+			 CreateCustomerAccount(logins);
+			 break;
+		 case 3: //If the user selects 3 -- Exit, exit the program
+			 System.exit(0);
+			 break;
+		 default:
+			 break;
+		 }
 	 }
+
  	
  	
  	
@@ -146,7 +153,7 @@ public static Login CreateLogin()
 	 return log;
 }
 
-public static void AttemptLogin(HashMap<Login, Vector<Account> > logins)
+public static boolean AttemptLogin(HashMap<Login, Vector<Account> > logins)
 {
 	
 	//initialize temporary Login object
@@ -172,9 +179,11 @@ public static void AttemptLogin(HashMap<Login, Vector<Account> > logins)
 					if (logins.containsKey(x))
 					{
 						System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
+						return true;
 					}
 					else {
 						System.out.println("\nKEY DOESNT MATCH");
+						return false;
 					}
 				 
 				// System.out.println(c.getFirstName() + " " + c.getLastName());
@@ -188,7 +197,7 @@ public static void AttemptLogin(HashMap<Login, Vector<Account> > logins)
 		 {
 			 JOptionPane.showMessageDialog(null, e.getMessage());
 		 }
-		 
+		 return false;
 		 
 		 
 		 //login must be valid in order to access the program

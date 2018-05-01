@@ -393,8 +393,8 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 			 ArrayList<String> optionList = new ArrayList<String>();
 				
 			 optionList.add("Checking Account");
-			 optionList.add("Savings Account");
 			 optionList.add("Money Market Account");
+			 optionList.add("Savings Account");
 			 optionList.add("Exit");
 			 Object[] options = optionList.toArray();
 			 int value = JOptionPane.showOptionDialog(

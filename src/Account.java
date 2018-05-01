@@ -37,6 +37,9 @@ public abstract class Account{
     	return totalWithdrawals;
     	
     }
+    // abstract method that returns the number of accounts of a single client
+    public abstract int getNumAcc();
+    
     public int getTotalNumAcc() {
     	return this.totalNumAcc;
     }

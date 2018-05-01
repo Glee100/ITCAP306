@@ -22,6 +22,7 @@ public class Savings extends Account{
     		throw new IllegalArgumentException("Must make a minimum deposit of " + MIN_DEPOSIT);
     	}
     }
+    public int getA
     
     //returns interest according to the balance
     public void setInterest(double balance) {

@@ -118,6 +118,10 @@ public class implentationp
 		 optionList.add("3");
 
 		 Object[] options = optionList.toArray();
+		 
+		 boolean menuClose = false;
+		 
+		 do {
 		 int value = JOptionPane.showOptionDialog(
 		                 null,
 		                 "Please select an option:\n 1. Create Account \n 2. View Accounts \n3. Exit",
@@ -140,12 +144,13 @@ public class implentationp
 			 ViewAccounts(customerLogin, logins);
 			 break;
 		 case 3: //If the user selects 3 -- Exit, exit the program
+			 menuClose = true;
 			 System.exit(0);
 			 break;
 		 default:
 			 break;
 		 }
-		 
+		 }while(!menuClose);
 		 
 
  }
@@ -583,7 +588,7 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 			 }
 		 break;
 	 case 4: //Exit, exit the program
-	 System.exit(0);
+		 break;
 	 default:
 		 break;
 	 }

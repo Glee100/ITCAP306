@@ -77,6 +77,7 @@ public class implentationp
 		 {
 		 case 1: //If the user selects 1 -- attempt to log in
 			 loginWorks = AttemptLogin(logins);
+			 System.out.println("LOGIN WORKS : " + loginWorks);
 			 break;
 		 case 2: //If the user selects 2 -- create a new user account in the system
 			 CreateCustomerAccount(logins);
@@ -164,21 +165,27 @@ public static boolean AttemptLogin(HashMap<Login, Vector<Account> > logins)
 			 x = CreateLogin();
 			 
 			 //will return illegal argument exception if login is invalid
-			 isValid = Login.validate(x, logins);
+			 //isValid = Login.validate(x, logins);
+			 
+			 Login matchedLogin = Login.validate(x, logins);
 			 
 			 //call menu method with customer associated with the login
 			 
 			 //get value of the specific login
 			 
-			 if(isValid)
+			 //if(isValid)
+			 if(matchedLogin != null)
 			 {
 				 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
 				//Customer c = (Customer) logins.get(x).firstElement();
 				 
 				 //get customer
-					if (logins.containsKey(x))
+					if (logins.containsKey(matchedLogin))
 					{
-						System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
+						//System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
+						System.out.println("GET CUSTOMER    : " + logins.get(matchedLogin).firstElement().getCustomer());
+						System.out.println("GET CUSTOMER NAME   : " + logins.get(matchedLogin).firstElement().getCustomer().getFirstName());
+
 						return true;
 					}
 					else {

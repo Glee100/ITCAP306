@@ -23,7 +23,7 @@ public class MarketAccount extends Account{
     // validates number of checking accounts
     public void validateNumAcc(int numMarketAcc) {
     	if(numMarketAcc > Account.MAX_ACC_EACH) {
-    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    		throw new IllegalArgumentException("Error! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
     	}
     }
     public int getNumAcc() {

@@ -17,7 +17,7 @@ public class Savings extends Account{
     }
     // cannot create without min deposit
     public Transaction validateMinDeposit(Transaction deposit) {
-    	if( deposit.getAmount()>= Account.MIN_TRANS) {
+    	if( deposit.getAmount()>= MIN_DEPOSIT) {
     		return deposit;
     	}else {
     		throw new IllegalArgumentException("Must make a minimum deposit of " + MIN_DEPOSIT);

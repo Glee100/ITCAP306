@@ -9,7 +9,7 @@ public abstract class Account{
     private Transaction deposit;
     private Transaction withdrawal;
     private Customer customer;
-    final static int MIN_TRANS = 1;
+    public static int MIN_TRANS = 1;
 	private static double totalDeposits = 0;
 	private static double totalWithdrawals = 0;
     public Account(Customer customer, String date){
@@ -22,6 +22,8 @@ public abstract class Account{
     }
     public static void setDeposit(Transaction deposit) {
     	// storing total deposits
+    	if(deposit.getAmount() <= MIN_TRANS) {throw new IllegalArgumentException("Must a be a positive number");}
+
     	totalDeposits= totalDeposits + deposit.getAmount();
     }
     public void setWithdrawal(Transaction withdrawal) {

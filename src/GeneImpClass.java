@@ -14,28 +14,20 @@ public class GeneImpClass
     // instance variables - replace the example below with your own
  public static void main(String[] args){
 	 
-	 //map with login as key, and arraylist of customer and accounts as value
-	 HashMap<Login, Vector<Account> > logins = new HashMap<Login, Vector<Account>>();
+	//map with login as key, and arraylist of customer and accounts as value
+	HashMap<Login, Vector<Account> > logins = new HashMap<Login, Vector<Account>>();
 	 
-		String path = "./src/ImportCustomers.txt";
-		
-		//call method to read files from path
-	    ImportFiles.readFromFile(path, logins);
-	 
-	 //System.out.println(logins);
-	 //System.out.println(logins.containsKey(L));
+	String path = "./src/ImportCustomers.txt";
+	
+	//call method to read files from path
+    ImportFiles.readFromFile(path, logins);
+ 
+    boolean validLogin = false;
 
-	 //System.out.println(logins.entrySet().toString());
-	 boolean validLogin = false;
-
-	 
-	 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
-	 //System.out.println(logins.get(new Login("customer3", "125")).elementAt(0));
-	 
 
 	 //print everything in map
 	 System.out.println("\n\n-----Logins In HashMap---------\n");
- 	Iterator it = logins.entrySet().iterator();
+ 	 Iterator it = logins.entrySet().iterator();
 	
  	//while there is a next pair
  	while(it.hasNext())
@@ -108,6 +100,8 @@ public class GeneImpClass
  /*
   * 
   * Menu displayed to the customer
+  * @param Login customer Login, HashMap<Login, Vector<Account>> logins
+  * @return none
   * */
  public static void Menu(Login customerLogin, HashMap<Login, Vector<Account> > logins) {
 		 
@@ -159,14 +153,12 @@ public class GeneImpClass
 		 break;
 	 }
 	 }while(!menuClose);
-	 
-
-		 
 
  }
 
 /*
  * Static method that handles logins
+ * @return Login login
  * */
 public static Login CreateLogin()
 {
@@ -178,35 +170,33 @@ public static Login CreateLogin()
 	 return log;
 }
 
+/*
+ * Validate login, and return the matching login from the hashmap if found
+ * @param HashMap<Login, Vector<Account>> logins
+ * @return Login login
+ * 
+ * */
 public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 {
 	
 	//initialize temporary Login object
 	 	Login x = null;
 	 	boolean isValid = false;
-		 
+	 	
+		 //will return illegal argument exception if login is invalid
 		 try {
 			 x = CreateLogin();
-			 
-			 //will return illegal argument exception if login is invalid
-			 //isValid = Login.validate(x, logins);
-			 
+
 			 Login matchedLogin = Login.validate(x, logins);
 			 
-			 //call menu method with customer associated with the login
-			 
 			 //get value of the specific login
-			 
-			 //if(isValid)
+
 			 if(matchedLogin != null)
 			 {
-				 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
-				//Customer c = (Customer) logins.get(x).firstElement();
 				 
 				 //get customer
 					if (logins.containsKey(matchedLogin))
 					{
-						//System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
 						System.out.println("GET CUSTOMER    : " + logins.get(matchedLogin).firstElement().getCustomer());
 						System.out.println("GET CUSTOMER NAME   : " + logins.get(matchedLogin).firstElement().getCustomer().getFirstName());
 
@@ -216,12 +206,7 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 						System.out.println("\nKEY DOESNT MATCH");
 						return null;
 					}
-				 
-				// System.out.println(c.getFirstName() + " " + c.getLastName());
 			 }
-
-			 //Menu(d);
-
 
 		 }
 		 catch(IllegalArgumentException e)
@@ -229,27 +214,14 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 			 JOptionPane.showMessageDialog(null, e.getMessage());
 		 }
 		 return null;
-		 
-		 
-		 //login must be valid in order to access the program
-		 /*if(validLogin)
-		 {
-			 Menu(customer1);
-		 }*/
-		 
-	     //if true
-	     //customer1, john, etc,
-	     //tokens
-	     //Customer c = new Customer (//get data from file);
-	     //menu
-	    // Account s = new Checkings(///);
-	     // for the other ones
-	    // print(linkedlist);
+
 }
 
 
 /*
  * This method creates a new Customer, and allows the customer to create a checking, savings, and money market account
+ * @param Hashmap<Login, Vector<Account>> logins
+ * @return Vector<Account>
  * */
 public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
 	 Vector<Account> objVector = new Vector<Account>();
@@ -278,7 +250,6 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 	logins.put(newLogin, new Vector<Account>() {{
 
 	}});
-	
 	//Menu for the user to create a new account
 	 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -361,10 +332,14 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 
 	return objVector;
 }
+
 /*
  * The customer can create additional accounts if they dont exist yet.
  * find and return existing accounts for the customer
  * give option to create accounts that dont exist
+ * 
+ * @param Login customerLogin, HashMap<Login, Vector<Account>> logins
+ * @return none
  * 
  * */
 public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<Account> > logins)
@@ -374,8 +349,7 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 		Account a = null;
 		
 		Customer cust = logins.get(customerLogin).firstElement().getCustomer();
-		
-		//--------------------------------------------------------------------
+
 		do {
 			
 			//count how many accounts customer has
@@ -432,16 +406,22 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 				 	if(!hasCheckingAccount)
 				 	{
 				 		String date = JOptionPane.showInputDialog("Transaction Date: ");
-				 		
-						a = new Checking(cust,date,
-							 	new Transaction(date,
-								Double.parseDouble(JOptionPane.showInputDialog("amount"))));
-					
-						//add account to hashmap
-						if (logins.containsKey(customerLogin))
-						{
-							logins.get(customerLogin).add(a);
-						}
+				 		try {
+							a = new Checking(cust,date,
+								 	new Transaction(date,
+									Double.parseDouble(JOptionPane.showInputDialog("amount"))));
+						
+							//add account to hashmap
+							if (logins.containsKey(customerLogin))
+							{
+								logins.get(customerLogin).add(a);
+							}
+				 		}
+				 		catch(IllegalArgumentException e)
+				 		{
+				 			JOptionPane.showMessageDialog(null, e.getMessage());
+				 		}
+
 				 	}
 				 	else
 				 	{
@@ -454,13 +434,20 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 					//creates a MarketAccount account
 				 	if(!hasMarketAccount)
 				 	{
-						a = new MarketAccount(cust,JOptionPane.showInputDialog("Transaction Date"));
-						
-						//add account to hashmap
-						if (logins.containsKey(customerLogin))
-						{
-							logins.get(customerLogin).add(a);
-						}
+				 		try {
+							a = new MarketAccount(cust,JOptionPane.showInputDialog("Transaction Date"));
+							
+							//add account to hashmap
+							if (logins.containsKey(customerLogin))
+							{
+								logins.get(customerLogin).add(a);
+							}
+				 		}
+				 		catch(IllegalArgumentException e)
+				 		{
+				 			JOptionPane.showMessageDialog(null, e.getMessage());
+				 		}
+
 				 	}
 				 	else
 				 	{
@@ -474,16 +461,22 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 				 	if(!hasSavingsAccount)
 				 	{
 				 		String date = JOptionPane.showInputDialog("Transaction Date: ");
-				 		
-					    a = new Savings(cust,date,
-								new Transaction(date,
-								Double.parseDouble(JOptionPane.showInputDialog("amount"))));
-					    
-						//add account to hashmap
-						if (logins.containsKey(customerLogin))
-						{
-							logins.get(customerLogin).add(a);
-						}
+				 		try {
+						    a = new Savings(cust,date,
+									new Transaction(date,
+									Double.parseDouble(JOptionPane.showInputDialog("amount"))));
+						    
+							//add account to hashmap
+							if (logins.containsKey(customerLogin))
+							{
+								logins.get(customerLogin).add(a);
+							}
+				 		}
+				 		catch(IllegalArgumentException e)
+				 		{
+				 			JOptionPane.showMessageDialog(null, e.getMessage());
+				 		}
+
 				 	}
 				 	else
 				 	{
@@ -499,14 +492,16 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 			 }
 			
 			 }while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
-
-	
+		
 }
 
 
 /*
  * The program should display the customer account number, first name, last name, total account balance before interest,
  *  total interest, and grand total balance for each account for each type of account.
+ *  
+ *  @param Login customerLogin, HashMap<Login, Vector<Account>> logins
+ *  @return none
  * 
  * */
 public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Account>> logins)
@@ -598,7 +593,7 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 				 JOptionPane.showMessageDialog(null, "You don't have a savings account");
 			 }
 		 break;
-	 case 4: //Exit, exit the program
+	 case 4: //Exit menu
 		 break;
 	 default:
 		 break;
@@ -610,7 +605,9 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 
 
 /*
- * 
+ * Customer can make a deposit into the selected account
+ * @param Login customerLogin, HashMap<Login ,Vector<Accoutn>> logins
+ * @return none
  * */
 public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Account>> logins) {
 	//count how many accounts customer has
@@ -772,7 +769,9 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 
 
 /*
- * 
+ * Customer can take withdrawal from the selected account
+ * @param Login customerLogin, HashMap<Login ,Vector<Accoutn>> logins
+ * @return none
  * */
 public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Account>> logins) {
 	//count how many accounts customer has

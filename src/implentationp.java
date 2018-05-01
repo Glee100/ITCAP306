@@ -81,7 +81,15 @@ public class implentationp
 			 
 			 break;
 		 case 2: //If the user selects 2 -- create a new user account in the system
-			 CreateCustomerAccount(logins);
+			 
+			 //return the new customer login if it is valid. An invalid account will return null
+			 Login newCustomerLogin = CreateCustomerAccount(logins);
+			 
+			 if(newCustomerLogin != null)
+			 {
+				 Menu(newCustomerLogin, logins);
+			 }
+
 			 break;
 		 case 3: //If the user selects 3 -- Exit, exit the program
 			 System.exit(0);
@@ -223,38 +231,61 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
  * @param Hashmap<Login, Vector<Account>> logins
  * @return Vector<Account>
  * */
-public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
+public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
 	Customer c;
 	Account a = null;
 	int totalAccounts = 0;
-	 do {
+	boolean newAccountCreated = false;
+	
+	 //do {
 	// needs a try catch here
 	//create login
-	/*	 
+	 
 	String user = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your username? ");	 
 	String password = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your password? ");	 
-	*/
-		 	String user = "Yamil01";
-		 	String password = "123";	
+	
 		 	Login newLogin = new Login(user, password);	 
 		 
 	 // creates a customer
-	/*
+	
 	c = new Customer(JOptionPane.showInputDialog("First Name"),JOptionPane.showInputDialog("Last Name"), 
 			 					JOptionPane.showInputDialog("Address"), JOptionPane.showInputDialog("Phone"), 
 			 							JOptionPane.showInputDialog("email"));
-	
-	*/
-	
-		 	c = new Customer("Shaman","Dog", "manassas", "57111111","asd@asd.com");
+
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
 	
 		 	logins.put(newLogin, new Vector<Account>() {{
 		 	
 	}});
 	do {
-		int currentSize = logins.get(newLogin).size();
-		try { // if client creates more than one account
+		
+		//count how many accounts customer has
+		final int NUM_ACCOUNTS = logins.get(newLogin).size();
+		
+		boolean hasCheckingAccount = false;
+		boolean hasSavingsAccount = false;
+		boolean hasMarketAccount = false;
+		
+		//identify what type of accounts already exist for the customer
+		for(int i = 0; i<NUM_ACCOUNTS; i++)
+		{
+			//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
+			if(logins.get(newLogin).get(i) instanceof Checking)
+			{
+				hasCheckingAccount = true;
+			}
+			else if(logins.get(newLogin).get(i) instanceof Savings)
+			{
+				hasSavingsAccount = true;
+			}
+			else if(logins.get(newLogin).get(i) instanceof MarketAccount)
+			{
+				hasMarketAccount = true;
+			}
+		}
+	
+	int currentSize = logins.get(newLogin).size();
+	try { // if client creates more than one account
 	//Menu for the user to create a new account
 	 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -265,7 +296,7 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 	 Object[] options = optionList.toArray();
 	 int value = JOptionPane.showOptionDialog(
 	                 null,
-	                 "Please select an option:\n 1. Create Checking Account \n 2. Create Savings Account \n3. Create Money Market Account \n4. Exit",
+	                 "Please select an option:\n 1. Create Checking Account \n 2. Create Money Market Account \n3. Create Savings Account \n4. Exit",
 	                 "Pick",
 	                 JOptionPane.YES_NO_OPTION,
 	                 JOptionPane.QUESTION_MESSAGE,
@@ -275,17 +306,22 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 
 	 String opt = optionList.get(value);
 	 
+	 String date;
+	 
 	 switch(Integer.parseInt(opt))
 	 {
 	 case 1:
 		 
-		 a = new Checking(c,"12/12/12",new Transaction("transaction Date", 900.00));
-		 	/*	a = new Checking(c,JOptionPane.showInputDialog("Transaction Date"),
-					 	new Transaction(JOptionPane.showInputDialog("transaction Date"),
+		 	if(!hasCheckingAccount)
+		 	{
+		 
+		 		date = JOptionPane.showInputDialog("Transaction Date");
+		 
+		 		a = new Checking(c,date,
+					 	new Transaction(date,
 						Double.parseDouble(JOptionPane.showInputDialog("amount"))));
 		 		
-		 		*/
-			//add account to hashmap
+		 		//add account to hashmap
 		 		//verify if value has checking
 		 		System.out.println("****Account to be Added ****\n " + a.toString());
 		 		if (logins.containsKey(newLogin) && currentSize > 0)
@@ -298,14 +334,23 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 		 		}else{
 		 			logins.get(newLogin).add(a);
 		 		}
+		 		//Customer account has successfully been created
+		 		newAccountCreated = true;
 		 		
-			//}
+			}
+		 	else {
+		 		JOptionPane.showMessageDialog(null, "Checking account already exists");
+		 	}
 			
 			break;
 	 case 2:
+		 
+		 	if(!hasMarketAccount)
+		 	{
+		 
 			//creates a MarketAccount account
-				//a = new MarketAccount(c,JOptionPane.showInputDialog("Transaction Date"));
-				a = new MarketAccount(c,"12/12/12");
+				a = new MarketAccount(c,JOptionPane.showInputDialog("Transaction Date"));
+
 			//add account to hashmap
 		 		System.out.println("****Account to be Added**** \n" + a.toString());
 		 		if (logins.containsKey(newLogin) && currentSize > 0)
@@ -317,16 +362,24 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 		 		}else{
 		 			logins.get(newLogin).add(a);
 		 		}
+		 		//Customer account has successfully been created
+		 		newAccountCreated = true;
+		 	}
+		 	else {
+		 		JOptionPane.showMessageDialog(null, "Market account already exists");
+		 	}
 	 		
 			break;
 	 case 3: //If the user selects 3 
 			//creates a savings account
-		 /*
-				a = new Savings(c,JOptionPane.showInputDialog("Transaction Date"),
-					new Transaction(JOptionPane.showInputDialog("transaction Date"),
+		 	if(!hasSavingsAccount)
+		 	{
+		 		date = JOptionPane.showInputDialog("Transaction Date");
+		 		
+				a = new Savings(c,date,
+					new Transaction(date,
 					Double.parseDouble(JOptionPane.showInputDialog("amount"))));
-		   */
-		 		a = new Savings(c,"12/12/12", new Transaction("12/12/12",800.00));
+		   
 				//add account to hashmap
 		 		System.out.println("****Account to be Added**** \n " + a.toString());
 		 		if (logins.containsKey(newLogin) && currentSize > 0)
@@ -338,6 +391,13 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 		 		}else{
 		 			logins.get(newLogin).add(a);
 		 		}
+		 		
+		 		//Customer account has successfully been created
+		 		newAccountCreated = true;
+		 	}
+		 	else {
+		 		JOptionPane.showMessageDialog(null, "Savings account already exists");
+		 	}
 			break;
 	 case 4: //Exit, exit the program
 	 System.exit(0);
@@ -348,14 +408,21 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		 totalAccounts = logins.get(newLogin).size();
-		 System.out.println("Number of total Accounts: >>>>>>"+totalAccounts);
+		 //System.out.println("Number of total Accounts: >>>>>>"+totalAccounts);
 		}while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0 && logins.get(newLogin).size() < Account.MAX_NUM_ACC );
 
 	 // needs to a try catch result inside of the while
-	 }while(totalAccounts<= Account.MAX_NUM_ACC ); 
+	 //}while(totalAccounts<= Account.MAX_NUM_ACC ); 
 	 if(totalAccounts >= Account.MAX_NUM_ACC ) {
 		 JOptionPane.showMessageDialog(null, "You reached the maximum number of accounts");
 	 }
+	 
+	 if(newAccountCreated)
+	 {
+		 return newLogin;
+	 }
+	 else {return null;}
+
 	
 }
 

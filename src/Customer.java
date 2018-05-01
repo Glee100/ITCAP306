@@ -9,15 +9,15 @@ public class Customer{
 	public final int MIN_NAME_LENGTH = 1;
 	public final int PHONE_LENGTH = 10;
 	
-   //constructor  
-
+	public Customer(){};
 	
+   //constructor  
    public Customer(String fName,String lName, String address, String phone, String email){
 	   this.fName = fName;
 	   this.lName = lName;
 	   this.address = address;
-	   this.phone = phone;
-	   this.email = email;
+	   setPhone(phone);
+	   setEmail(email);
     }
    
    //getters
@@ -135,8 +135,8 @@ public class Customer{
 		   throw new IllegalArgumentException("Must enter a phone number.");
 	   }
 
-	   //if the name contains a number, throw exception
-	    for(char c : phone.toCharArray()){
+	   //if phone number contains letters, throw exception
+	   /* for(char c : phone.toCharArray()){
 	        if(!Character.isDigit(c)){
 	            throw new IllegalArgumentException("Phone number must only be a digit.");
 	        } 
@@ -149,6 +149,14 @@ public class Customer{
 	   }
 	   else {
 		   throw new IllegalArgumentException("Phone number must be 10 digits.");
+	   }*/
+	   
+	   String regexStr = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$" ;
+	   if (phone.matches(regexStr)) {
+	    System.out.println("correct format entered");
+	    
+	   }else {
+	       throw new IllegalArgumentException("You must enter a correct format!");
 	   }
 
    }
@@ -162,12 +170,6 @@ public class Customer{
 		   throw new IllegalArgumentException("Must enter an email address.");
 	   }
 	   
-	   //if string contains '@' character
-	    for(char c : phone.toCharArray()){
-	        if(!Character.isDigit(c)){
-	            throw new IllegalArgumentException("Phone number must only be a digit.");
-	        } 
-	    }
 
 	   //if the length of the name is greater than 0
 	   if(email.length() >= MIN_NAME_LENGTH)

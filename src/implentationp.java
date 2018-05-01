@@ -229,7 +229,7 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
  * @return Login 
  * */
 public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
-	Customer c;
+	Customer c = null;
 	Account a = null;
 	int totalAccounts = 0;
 	boolean newAccountCreated = false;
@@ -240,10 +240,31 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 	
 	Login newLogin = new Login(user, password);	 
 		 
+	boolean validatedInfo = false;
+	
 	 // creates a customer
-	c = new Customer(JOptionPane.showInputDialog("First Name"),JOptionPane.showInputDialog("Last Name"), 
-			 					JOptionPane.showInputDialog("Address"), JOptionPane.showInputDialog("Phone"), 
-			 							JOptionPane.showInputDialog("email"));
+	do {
+		try {
+			c = new Customer();
+			c.setFirstName(JOptionPane.showInputDialog("First Name"));
+			c.setLastName(JOptionPane.showInputDialog("Last Name"));
+			c.setAddress(JOptionPane.showInputDialog("Address"));
+			c.setPhone(JOptionPane.showInputDialog("Phone"));
+			c.setEmail(JOptionPane.showInputDialog("Email"));
+
+			validatedInfo = true;
+		}
+		catch(IllegalArgumentException e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		catch(Exception e)
+		{
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
+	}while(!validatedInfo);
+	
 
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
 	logins.put(newLogin, new Vector<Account>() {{ }});
@@ -303,7 +324,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 	 {
 	 case 1:
 		 	//if user does not have existing checking account, create a checking account
-		 	if(!hasCheckingAccount)
+		 	if(!hasCheckingAccount && c!=null)
 		 	{
 		 
 		 		date = JOptionPane.showInputDialog("Transaction Date");
@@ -336,7 +357,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 			break;
 	 case 2:
 		 	//if user does not have existing market account, create a market account
-		 	if(!hasMarketAccount)
+		 	if(!hasMarketAccount && c!=null)
 		 	{
 		 
 			//creates a MarketAccount account
@@ -363,7 +384,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 			break;
 	 case 3: //If the user selects 3 
 		 	//if user does not have existing savings account, create a savings account
-		 	if(!hasSavingsAccount)
+		 	if(!hasSavingsAccount && c!=null)
 		 	{
 		 		date = JOptionPane.showInputDialog("Transaction Date");
 		 		

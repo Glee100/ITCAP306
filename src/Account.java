@@ -137,7 +137,8 @@ public abstract class Account{
     			+ "\nLast Name: " + getCustomer().getLastName()
     			+ "\nTotal Balance: " + getBalance()
     			+ "\nTotal Interest: " + getInterestAmount()
-    			+ "\nGrand Total Balance: " + getTotalBalanceAccount();
+    			+ "\nGrand Total Balance: " + getTotalBalanceAccount()
+    			+ "\nGrand Total Balance All users: " + getTotalBalance();
     }
    
 }

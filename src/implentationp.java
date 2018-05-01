@@ -540,7 +540,7 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 	 Object[] options = optionList.toArray();
 	 int value = JOptionPane.showOptionDialog(
 	                 null,
-	                 "View an Account:\n 1. Checking Account \n 2. Savings Account \n3. Money Market Account \n4. Exit",
+	                 "View an Account:\n 1. Checking Account \n 2. Money Market Account \n3. Savings Account \n4. Exit",
 	                 "Pick",
 	                 JOptionPane.YES_NO_OPTION,
 	                 JOptionPane.QUESTION_MESSAGE,

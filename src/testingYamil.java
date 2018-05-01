@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * @author Yamil Castro
  * @version (a version number or a date)
  */
-public class implentationp
+public class testingYamil
 {
     // instance variables - replace the example below with your own
  public static void main(String[] args){
@@ -260,9 +260,16 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 	*/
 	c = new Customer("Yamil","Castro", "manassas", "57111111","asd@asd.com");
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
+	objVector = vector.get(i);
+	for (Object o : objs) {
+	    System.out.print(o + " ");
+	}
+	System.out.println();
 	logins.put(newLogin, new Vector<Account>() {{
 
 	}});
+	///
+	System.out.println(logins);
 	//Menu for the user to create a new account
 	 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -539,7 +546,7 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 	 Object[] options = optionList.toArray();
 	 int value = JOptionPane.showOptionDialog(
 	                 null,
-	                 "View an Account:\n 1. Checking Account \n 2. Money Market Account \n3. Savings Account \n4. Exit",
+	                 "View an Account:\n 1. Checking Account \n 2. Savings Account \n3. Money Market Account \n4. Exit",
 	                 "Pick",
 	                 JOptionPane.YES_NO_OPTION,
 	                 JOptionPane.QUESTION_MESSAGE,

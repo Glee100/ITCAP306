@@ -246,7 +246,7 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 	Account a = null;
 	int totalAccounts = 0;
 	 do {
-		 try {
+	// needs a try catch here
 	//create login
 	/*	 
 	String user = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your username? ");	 
@@ -270,9 +270,6 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 		 	logins.put(newLogin, new Vector<Account>() {{
 		 	
 	}});
-		 }catch(IllegalArgumentException e) {
-			 ()
-		 }
 	do {
 		int currentSize = logins.get(newLogin).size();
 		try { // if client creates more than one account
@@ -312,6 +309,7 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 		 		if (logins.containsKey(newLogin) && currentSize > 0)
 		 		{
 		 			for(int i = 0; i < currentSize; i++) {
+		 				// compares objects and if finds a duplicate it throws an exception
 			 			a.compareTo(logins.get(newLogin).get(i));
 		 				logins.get(newLogin).add(a);
 		 			}
@@ -367,11 +365,12 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 			}catch(IllegalArgumentException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
+		 totalAccounts = logins.get(newLogin).size();
+		 System.out.println("Number of total Accounts: >>>>>>"+totalAccounts);
 		}while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0 && logins.get(newLogin).size() < Account.MAX_NUM_ACC );
-	 totalAccounts = logins.get(newLogin).size();
 
-	 }while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0
-			 && totalAccounts<= Account.MAX_NUM_ACC ); 
+	 // needs to a try catch result inside of the while
+	 }while(totalAccounts<= Account.MAX_NUM_ACC ); 
 	 if(totalAccounts >= Account.MAX_NUM_ACC ) {
 		 JOptionPane.showMessageDialog(null, "You reached the maximum number of accounts");
 	 }

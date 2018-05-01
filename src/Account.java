@@ -36,14 +36,11 @@ public abstract class Account{
     	}
     }
     //this abstract method validates the maximum number of accounts
-    public abstract void validateNumAcc(int numCheckingAcc);
+    public abstract void compareTo(Object o);
     public static double totalWithdrawals() {
     	return totalWithdrawals;
     	
-    }
-    // abstract method that returns the number of accounts of a single client
-    public abstract int getNumAcc();
-    
+    }  
     public int getTotalNumAcc() {
     	return this.totalNumAcc;
     }

@@ -8,24 +8,18 @@ public class Checking extends Account{
     // must be double
     public final double CHECKING_INTEREST = 0.05;
 	public final int INTEREST_BALANCE_FIXED = 50000;
-	private int numCheckingAcc = 0;
 	//total deposits made to checkings acc
     public Checking(Customer customer, String date, Transaction deposit){
     	super(customer, date);
     	//validates min deposit or throws exception
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);
-    	this.numCheckingAcc++;
-    	validateNumAcc(this.numCheckingAcc);
     }
     // validates number of checking accounts
-    public void validateNumAcc(int numCheckingAcc) {
-    	if(numCheckingAcc > Account.MAX_ACC_EACH) {
+    public void compareTo(Object o) {
+    	if(o instanceof Checking) {
     		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
     	}
-    }
-    public int getNumAcc() {
-    	return numCheckingAcc;
     }
     // cannot create without min deposit
     public Transaction validateMinDeposit(Transaction deposit) {

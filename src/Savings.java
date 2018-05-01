@@ -7,13 +7,10 @@ public class Savings extends Account{
 	private final double BALANCE_INTEREST = 0.03;// for now
 	private final double BALANCE_INTEREST_MAX = 0.25;
 	public final int INTEREST_BALANCE_FIXED = 50000;
-	private int numSavingAcc = 0;
     public Savings(Customer customer, String date, Transaction deposit){
     	super(customer, date);
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);
-    	numSavingAcc++;
-    	validateNumAcc(numSavingAcc);
     }
     // cannot create without min deposit
     public Transaction validateMinDeposit(Transaction deposit) {
@@ -23,16 +20,11 @@ public class Savings extends Account{
     		throw new IllegalArgumentException("Must make a minimum deposit of " + MIN_DEPOSIT);
     	}
     }
-    // validates number of checking accounts
-    public void validateNumAcc(int numSavingAcc) {
-    	if(numSavingAcc > Account.MAX_ACC_EACH) {
-    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    public void compareTo(Object o) {
+    	if(o instanceof Savings) {
+    		throw new IllegalArgumentException("Error! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
     	}
     }
-    public int getNumAcc() {
-    	return numSavingAcc;
-    }
-    
     //returns interest according to the balance
     public void setInterest(double balance) {
     		if(balance < INTEREST_BALANCE_FIXED) {

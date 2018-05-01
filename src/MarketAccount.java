@@ -6,11 +6,8 @@ public class MarketAccount extends Account{
 	private final double BALANCE_INTEREST = 0.04;// for now
 	private final double BALANCE_INTEREST_MAX = 0.30;
 	public final int INTEREST_BALANCE_FIXED = 75000;
-	private  int numMarketAcc = 0;
     public MarketAccount(Customer customer, String date){
     	super(customer, date);
-    	this.numMarketAcc++;
-    	validateNumAcc(numMarketAcc);
     }
     //returns interest according to the balance
     public void setInterest(double balance) {
@@ -20,16 +17,11 @@ public class MarketAccount extends Account{
     			this.interest = BALANCE_INTEREST_MAX;//0.30
     		}
     }
-    // validates number of checking accounts
-    public void validateNumAcc(int numMarketAcc) {
-    	if(numMarketAcc > Account.MAX_ACC_EACH) {
-    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    public void compareTo(Object o) {
+    	if(o instanceof MarketAccount) {
+    		throw new IllegalArgumentException("Error! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
     	}
     }
-    public int getNumAcc() {
-    	return numMarketAcc;
-    }
-    
     public double getInterest(){
     	return this.interest;
     }

@@ -33,6 +33,8 @@ public abstract class Account{
     		throw new IllegalArgumentException("Error! You do not have enough money to make this transaction!");
     	}
     }
+    //this abstract method validates the maximum number of accounts
+    public abstract void validateNumAcc(int numCheckingAcc);
     public static double totalWithdrawals() {
     	return totalWithdrawals;
     	

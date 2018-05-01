@@ -13,6 +13,7 @@ public class Savings extends Account{
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);
     	numSavingAcc++;
+    	validateNumAcc(numSavingAcc);
     }
     // cannot create without min deposit
     public Transaction validateMinDeposit(Transaction deposit) {
@@ -20,6 +21,12 @@ public class Savings extends Account{
     		return deposit;
     	}else {
     		throw new IllegalArgumentException("Must make a minimum deposit of " + MIN_DEPOSIT);
+    	}
+    }
+    // validates number of checking accounts
+    public void validateNumAcc(int numSavingAcc) {
+    	if(numSavingAcc > Account.MAX_ACC_EACH) {
+    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
     	}
     }
     public int getNumAcc() {

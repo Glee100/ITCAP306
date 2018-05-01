@@ -9,7 +9,8 @@ public class MarketAccount extends Account{
 	private  int numMarketAcc = 0;
     public MarketAccount(Customer customer, String date){
     	super(customer, date);
-    	numMarketAcc++;
+    	this.numMarketAcc++;
+    	validateNumAcc(numMarketAcc);
     }
     //returns interest according to the balance
     public void setInterest(double balance) {
@@ -19,7 +20,12 @@ public class MarketAccount extends Account{
     			this.interest = BALANCE_INTEREST_MAX;//0.30
     		}
     }
-    
+    // validates number of checking accounts
+    public void validateNumAcc(int numMarketAcc) {
+    	if(numMarketAcc > Account.MAX_ACC_EACH) {
+    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    	}
+    }
     public int getNumAcc() {
     	return numMarketAcc;
     }

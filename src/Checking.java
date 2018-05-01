@@ -15,7 +15,15 @@ public class Checking extends Account{
     	//validates min deposit or throws exception
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);
-    	numCheckingAcc++;
+    	this.numCheckingAcc++;
+    	validateNumAcc(this.numCheckingAcc);
+    	
+    }
+    // validates number of checking accounts
+    public void validateNumAcc(int numCheckingAcc) {
+    	if(numCheckingAcc > Account.MAX_ACC_EACH) {
+    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    	}
     }
     public int getNumAcc() {
     	return numCheckingAcc;

@@ -12,13 +12,33 @@ public abstract class Account{
     public static int MIN_TRANS = 1;
 	private static double totalDeposits = 0;
 	private static double totalWithdrawals = 0;
+	
+	private double accountBalance;
+	private double totalBalance;
+	
+	private double accountWithdrawals;
+	
     public Account(Customer customer, String date){
     	this.customer = customer;
     	accountNumberCreator++;//
     	//increase the account number and stores it in account number
     	this.accountNumber = accountNumberCreator;//
+    	this.totalBalance = accountBalance - accountWithdrawals;
     	//total number of accounts for each customer
     	totalNumAcc++;
+    }
+    //getting balance for each account
+    public double getAccountBalance() {
+    	this.accountBalance = deposit.getAmount();
+    	return this.accountBalance;
+    }
+    public double getAccountWithdrawals() {
+    	return this.accountWithdrawals = withdrawal.getAmount();
+    }
+    //geting total balance
+    public double getTotalBalanceAccount() {
+    	this.totalBalance = accountBalance - accountWithdrawals;
+    	return this.totalBalance;
     }
     public static void setDeposit(Transaction deposit) {
     	// storing total deposits
@@ -44,7 +64,8 @@ public abstract class Account{
     public int getTotalNumAcc() {
     	return this.totalNumAcc;
     }
-    public static double totalDeposits() {
+    // total deposits for each acc
+    public double totalDeposits() {
     	return totalDeposits;
     }
     public double getBalance() {
@@ -116,7 +137,7 @@ public abstract class Account{
     			+ "\nLast Name: " + getCustomer().getLastName()
     			+ "\nTotal Balance: " + getBalance()
     			+ "\nTotal Interest: " + getInterestAmount()
-    			+ "\nGrand Total Balance: " + getTotalBalance();
+    			+ "\nGrand Total Balance: " + getTotalBalanceAccount();
     }
    
 }

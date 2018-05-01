@@ -17,7 +17,6 @@ public class Checking extends Account{
     	Account.setDeposit(deposit);
     	this.numCheckingAcc++;
     	validateNumAcc(this.numCheckingAcc);
-    	
     }
     // validates number of checking accounts
     public void validateNumAcc(int numCheckingAcc) {

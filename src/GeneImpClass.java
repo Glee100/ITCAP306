@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  * @author Yamil Castro
  * @version (a version number or a date)
  */
-public class testingYamil
+public class GeneImpClass
 {
     // instance variables - replace the example below with your own
  public static void main(String[] args){
@@ -116,6 +116,8 @@ public class testingYamil
 		 optionList.add("1");
 		 optionList.add("2");
 		 optionList.add("3");
+		 optionList.add("4");
+		 optionList.add("5");
 
 		 Object[] options = optionList.toArray();
 		 
@@ -124,7 +126,7 @@ public class testingYamil
 		 do {
 		 int value = JOptionPane.showOptionDialog(
 		                 null,
-		                 "Please select an option:\n 1. Create Account \n 2. View Accounts \n3. Exit",
+		                 "Please select an option:\n 1. Create Account \n 2. View Accounts \n3. Make Deposit \n4. Make Withdrawal \n5. Exit",
 		                 "Pick",
 		                 JOptionPane.YES_NO_OPTION,
 		                 JOptionPane.QUESTION_MESSAGE,
@@ -143,7 +145,13 @@ public class testingYamil
 		 case 2: //If the user selects 2 -- view accounts
 			 ViewAccounts(customerLogin, logins);
 			 break;
-		 case 3: //If the user selects 3 -- Exit, exit the program
+		 case 3: //If the user selects 2 -- view accounts
+			 MakeDeposit(customerLogin, logins);
+			 break;
+		 case 4: //If the user selects 2 -- view accounts
+			 MakeWithdrawal(customerLogin, logins);
+			 break;
+		 case 5: //If the user selects 3 -- Exit, exit the program
 			 menuClose = true;
 			 System.exit(0);
 			 break;
@@ -241,8 +249,8 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 /*
  * This method creates a new Customer, and allows the customer to create a checking, savings, and money market account
  * */
-public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
-	//Vector<Account> objVector = new Vector<Account>();
+public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
+	 Vector<Account> objVector = new Vector<Account>();
 	Customer c;
 	Account a = null;
 	 do {
@@ -265,14 +273,13 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 	*/
 	c = new Customer("Yamil","Castro", "manassas", "57111111","asd@asd.com");
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
-	
 	logins.put(newLogin, new Vector<Account>() {{
 
 	}});
 	
-	 CreateBankAccount(newLogin, logins);	
-	do {
-		try { // if client creates more than one account
+	System.out.println("LOGIN HASHMAP CONTAINS KEY: " + logins.containsKey(newLogin));
+	
+	
 	//Menu for the user to create a new account
 	 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -293,26 +300,32 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 
 	 String opt = optionList.get(value);
 	 
+	 //JOptionPane.showMessageDialog(null, a.getTotalNumAcc());
+	 
 	 switch(Integer.parseInt(opt))
 	 {
-	 case 1: 
-		 a = new Checking(c,"12/12/12",new Transaction("transaction Date", 900.00));
-		 
-		 	/*	a = new Checking(c,JOptionPane.showInputDialog("Transaction Date"),
+	 case 1: //If the user selects 1 -- 
+			//creates a checking account
+		 	if(a.getNumAcc()> Account.MAX_ACC_EACH) {
+		 		JOptionPane.showMessageDialog(null, "You can only have"+ Account.MAX_ACC_EACH+"Checkings account!");
+		 		
+		 	}else {
+		 		a = new Checking(c,JOptionPane.showInputDialog("Transaction Date"),
 					 	new Transaction(JOptionPane.showInputDialog("transaction Date"),
 						Double.parseDouble(JOptionPane.showInputDialog("amount"))));
-		 		System.out.println(a.getNumAcc());
-		 		*/
 			//add account to hashmap
 		 		if (logins.containsKey(newLogin))
 		 		{
 				logins.get(newLogin).add(a);
 		 		}
-			//}
+			}
 			
 			break;
 	 case 2:
 			//creates a MarketAccount account
+			if(a.getNumAcc()> Account.MAX_ACC_EACH) {
+				JOptionPane.showMessageDialog(null, "You can only have"+ Account.MAX_ACC_EACH+"market account!");
+			}else{
 				a = new MarketAccount(c,JOptionPane.showInputDialog("Transaction Date"));
 			
 			//add account to hashmap
@@ -320,11 +333,13 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 				{
 				logins.get(newLogin).add(a);
 				}
-	 		
+	 		}
 			break;
 	 case 3: //If the user selects 3 
 			//creates a savings account
-
+			if(a.getNumAcc()> Account.MAX_ACC_EACH) {
+				JOptionPane.showMessageDialog(null, "You can only have "+ Account.MAX_ACC_EACH +" savings account!");
+			}else{
 				a = new Savings(c,JOptionPane.showInputDialog("Transaction Date"),
 					new Transaction(JOptionPane.showInputDialog("transaction Date"),
 					Double.parseDouble(JOptionPane.showInputDialog("amount"))));
@@ -334,22 +349,19 @@ public static void CreateCustomerAccount(HashMap<Login, Vector<Account> > logins
 				{
 				logins.get(newLogin).add(a);
 				}
+			}
 			break;
 	 case 4: //Exit, exit the program
 	 System.exit(0);
 	 default:
 		 break;
 	 }
-			}catch(IllegalArgumentException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			}
-		}while(true);	 
-	 
+	
 	 }while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0
 			 && a.getTotalNumAcc() <= Account.MAX_NUM_ACC );
-	 
-}
 
+	return objVector;
+}
 /*
  * The customer can create additional accounts if they dont exist yet.
  * find and return existing accounts for the customer
@@ -597,4 +609,328 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 }
 
  
+/*
+ * 
+ * */
+public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Account>> logins) {
+	//count how many accounts customer has
+		final int NUM_ACCOUNTS = logins.get(customerLogin).size();
+		
+		boolean hasCheckingAccount = false;
+		boolean hasSavingsAccount = false;
+		boolean hasMarketAccount = false;
+		
+		int checkingAccountIndex = -1;
+		int savingsAccountIndex = -1;
+		int marketAccountIndex = -1;
+		
+		//identify what type of accounts already exist for the customer
+		for(int i = 0; i<NUM_ACCOUNTS; i++)
+		{
+			//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
+			if(logins.get(customerLogin).get(i) instanceof Checking)
+			{
+				hasCheckingAccount = true;
+				checkingAccountIndex = i;
+			}
+			else if(logins.get(customerLogin).get(i) instanceof Savings)
+			{
+				hasSavingsAccount = true;
+				savingsAccountIndex = i;
+			}
+			else if(logins.get(customerLogin).get(i) instanceof MarketAccount)
+			{
+				hasMarketAccount = true;
+				marketAccountIndex = i;
+			}
+		}
+		
+		
+		 do {
+
+		 ArrayList<String> optionList = new ArrayList<String>();
+			
+		 optionList.add("1");
+		 optionList.add("2");
+		 optionList.add("3");
+		 optionList.add("4");
+		 Object[] options = optionList.toArray();
+		 int value = JOptionPane.showOptionDialog(
+		                 null,
+		                 "Make a deposit:\n 1. Checking Account \n 2. Money Market Account \n3. Savings Account \n4. Cancel",
+		                 "Pick",
+		                 JOptionPane.YES_NO_OPTION,
+		                 JOptionPane.QUESTION_MESSAGE,
+		                 null,
+		                 options,
+		                 optionList.get(0));
+
+		 String opt = optionList.get(value);
+		 
+		 
+		 switch(Integer.parseInt(opt))
+		 {
+		 case 1: //If the user selects 1 -- display Checking acount
+			 //if the customer has checking account, find it, and return toString
+				 if(hasCheckingAccount && (checkingAccountIndex != -1))
+				 {
+					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
+					 	String date;
+					 	Double amount;
+					 	try {
+						 	date = JOptionPane.showInputDialog("Transaction Date: ");
+						 	
+						 	amount = Double.parseDouble(JOptionPane.showInputDialog("Deposit Amount: "));
+						 	
+						 	Transaction t = new Transaction(date, amount);
+						 	
+						 	//FIX -- make changes to account/checking classes to set deposit for single not total account
+						 	logins.get(customerLogin).get(checkingAccountIndex).setDeposit(t);
+						 	
+						 	//---------------
+						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
+						 	
+					 	}
+					 	catch(IllegalArgumentException e)
+					 	{
+					 		JOptionPane.showMessageDialog(null, e.getMessage());
+					 	}
+					 	
+				 }
+				 else {
+					 JOptionPane.showMessageDialog(null, "You don't have a checking account");
+				 }
+				break;
+		 case 2:
+				//display MarketAccount account
+				 if(hasMarketAccount && (marketAccountIndex != -1))
+				 {
+					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
+					 	String date;
+					 	Double amount;
+					 	try {
+						 	date = JOptionPane.showInputDialog("Transaction Date: ");
+						 	
+						 	amount = Double.parseDouble(JOptionPane.showInputDialog("Deposit Amount: "));
+						 	
+						 	Transaction t = new Transaction(date, amount);
+						 	
+						 	//FIX -- make changes to account/market classes to set deposit for single not total account
+						 	logins.get(customerLogin).get(marketAccountIndex).setDeposit(t);
+						 	
+						 	//---------------
+						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
+						 	
+					 	}
+					 	catch(IllegalArgumentException e)
+					 	{
+					 		JOptionPane.showMessageDialog(null, e.getMessage());
+					 	}
+				 }
+				 else {
+					 JOptionPane.showMessageDialog(null, "You don't have a money market account");
+				 }
+				break;
+		 case 3: //If the user selects 3 
+				//display savings account
+				 if(hasSavingsAccount&& (savingsAccountIndex != -1))
+				 {
+					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
+					 	String date;
+					 	Double amount;
+					 	try {
+						 	date = JOptionPane.showInputDialog("Transaction Date: ");
+						 	
+						 	amount = Double.parseDouble(JOptionPane.showInputDialog("Deposit Amount: "));
+						 	
+						 	Transaction t = new Transaction(date, amount);
+						 	
+						 	//FIX -- make changes to account/savings classes to set deposit for single not total account
+						 	logins.get(customerLogin).get(savingsAccountIndex).setDeposit(t);
+						 	
+						 	//---------------
+						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
+						 	
+					 	}
+					 	catch(IllegalArgumentException e)
+					 	{
+					 		JOptionPane.showMessageDialog(null, e.getMessage());
+					 	}
+				 }
+				 else {
+					 JOptionPane.showMessageDialog(null, "You don't have a savings account");
+				 }
+			 break;
+		 case 4: //Exit, exit the program
+			 break;
+		 default:
+			 break;
+		 }
+		
+		 }while(JOptionPane.showConfirmDialog(null,"Do you want to deposit into another account ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
+}
+
+
+/*
+ * 
+ * */
+public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Account>> logins) {
+	//count how many accounts customer has
+	final int NUM_ACCOUNTS = logins.get(customerLogin).size();
+	
+	boolean hasCheckingAccount = false;
+	boolean hasSavingsAccount = false;
+	boolean hasMarketAccount = false;
+	
+	int checkingAccountIndex = -1;
+	int savingsAccountIndex = -1;
+	int marketAccountIndex = -1;
+	
+	//identify what type of accounts already exist for the customer
+	for(int i = 0; i<NUM_ACCOUNTS; i++)
+	{
+		//if the account in the vector is a checking account, set boolean hasCheckingAccount to true
+		if(logins.get(customerLogin).get(i) instanceof Checking)
+		{
+			hasCheckingAccount = true;
+			checkingAccountIndex = i;
+		}
+		else if(logins.get(customerLogin).get(i) instanceof Savings)
+		{
+			hasSavingsAccount = true;
+			savingsAccountIndex = i;
+		}
+		else if(logins.get(customerLogin).get(i) instanceof MarketAccount)
+		{
+			hasMarketAccount = true;
+			marketAccountIndex = i;
+		}
+	}
+	
+	
+	 do {
+
+	 ArrayList<String> optionList = new ArrayList<String>();
+		
+	 optionList.add("1");
+	 optionList.add("2");
+	 optionList.add("3");
+	 optionList.add("4");
+	 Object[] options = optionList.toArray();
+	 int value = JOptionPane.showOptionDialog(
+	                 null,
+	                 "Make a withdrawal:\n 1. Checking Account \n 2. Money Market Account \n3. Savings Account \n4. Cancel",
+	                 "Pick",
+	                 JOptionPane.YES_NO_OPTION,
+	                 JOptionPane.QUESTION_MESSAGE,
+	                 null,
+	                 options,
+	                 optionList.get(0));
+
+	 String opt = optionList.get(value);
+	 
+	 
+	 switch(Integer.parseInt(opt))
+	 {
+	 case 1: //If the user selects 1 -- display Checking acount
+		 //if the customer has checking account, find it, and return toString
+			 if(hasCheckingAccount && (checkingAccountIndex != -1))
+			 {
+				 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
+				 	String date;
+				 	Double amount;
+				 	try {
+					 	date = JOptionPane.showInputDialog("Transaction Date: ");
+					 	
+					 	amount = Double.parseDouble(JOptionPane.showInputDialog("Withdrawal Amount: "));
+					 	
+					 	Transaction t = new Transaction(date, amount);
+					 	
+					 	//FIX -- make changes to account/checking classes to set withdrawal for single not total account
+					 	logins.get(customerLogin).get(checkingAccountIndex).setWithdrawal(t);
+					 	
+					 	//---------------
+					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
+					 	
+				 	}
+				 	catch(IllegalArgumentException e)
+				 	{
+				 		JOptionPane.showMessageDialog(null, e.getMessage());
+				 	}
+				 	
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(null, "You don't have a checking account");
+			 }
+			break;
+	 case 2:
+			//display MarketAccount account
+			 if(hasMarketAccount && (marketAccountIndex != -1))
+			 {
+				 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
+				 	String date;
+				 	Double amount;
+				 	try {
+					 	date = JOptionPane.showInputDialog("Transaction Date: ");
+					 	
+					 	amount = Double.parseDouble(JOptionPane.showInputDialog("Withdrawal Amount: "));
+					 	
+					 	Transaction t = new Transaction(date, amount);
+					 	
+					 	//FIX -- make changes to account/market classes to set deposit for single not total account
+					 	logins.get(customerLogin).get(marketAccountIndex).setWithdrawal(t);
+					 	
+					 	//---------------
+					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
+					 	
+				 	}
+				 	catch(IllegalArgumentException e)
+				 	{
+				 		JOptionPane.showMessageDialog(null, e.getMessage());
+				 	}
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(null, "You don't have a money market account");
+			 }
+			break;
+	 case 3: //If the user selects 3 
+			//display savings account
+			 if(hasSavingsAccount&& (savingsAccountIndex != -1))
+			 {
+				 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
+				 	String date;
+				 	Double amount;
+				 	try {
+					 	date = JOptionPane.showInputDialog("Transaction Date: ");
+					 	
+					 	amount = Double.parseDouble(JOptionPane.showInputDialog("Withdrawal Amount: "));
+					 	
+					 	Transaction t = new Transaction(date, amount);
+					 	
+					 	//FIX -- make changes to account/savings classes to set deposit for single not total account
+					 	logins.get(customerLogin).get(savingsAccountIndex).setWithdrawal(t);
+					 	
+					 	//---------------
+					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
+					 	
+				 	}
+				 	catch(IllegalArgumentException e)
+				 	{
+				 		JOptionPane.showMessageDialog(null, e.getMessage());
+				 	}
+			 }
+			 else {
+				 JOptionPane.showMessageDialog(null, "You don't have a savings account");
+			 }
+		 break;
+	 case 4: //Exit, exit the program
+		 break;
+	 default:
+		 break;
+	 }
+	
+	 }while(JOptionPane.showConfirmDialog(null,"Do you want to withdraw from another account ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
+}
+
+
 }

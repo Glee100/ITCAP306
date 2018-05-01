@@ -22,7 +22,7 @@ public class Savings extends Account{
     }
     public void compareTo(Object o) {
     	if(o instanceof Savings) {
-    		throw new IllegalArgumentException("Error! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    		throw new IllegalArgumentException("Error! You already have a savings account");
     	}
     }
     //returns interest according to the balance

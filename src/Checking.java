@@ -18,7 +18,7 @@ public class Checking extends Account{
     // validates number of checking accounts
     public void compareTo(Object o) {
     	if(o instanceof Checking) {
-    		throw new IllegalArgumentException("Erro! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    		throw new IllegalArgumentException("Error! You already have a checkings account");
     	}
     }
     // cannot create without min deposit

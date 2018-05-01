@@ -19,7 +19,7 @@ public class MarketAccount extends Account{
     }
     public void compareTo(Object o) {
     	if(o instanceof MarketAccount) {
-    		throw new IllegalArgumentException("Error! You cannot have more than "+Account.MAX_ACC_EACH+"(s) account(s)");
+    		throw new IllegalArgumentException("Error! You already have a market account");
     	}
     }
     public double getInterest(){

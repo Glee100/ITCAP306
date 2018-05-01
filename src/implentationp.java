@@ -243,17 +243,22 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 	 do {
 		 
 	//create login
+	/*	 
 	String user = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your username? ");	 
 	String password = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your password? ");	 
-		 
+	*/
+		 String user = "Yamil01";
+		 String password = "123";	
 	Login newLogin = new Login(user, password);	 
 		 
 	 // creates a customer
+	/*
 	c = new Customer(JOptionPane.showInputDialog("First Name"),JOptionPane.showInputDialog("Last Name"), 
 			 					JOptionPane.showInputDialog("Address"), JOptionPane.showInputDialog("Phone"), 
 			 							JOptionPane.showInputDialog("email"));
 	
-	
+	*/
+	c = new Customer("Yamil","Castro", "manassas", "57111111","asd@asd.com");
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
 	logins.put(newLogin, new Vector<Account>() {{
 
@@ -279,12 +284,13 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 
 	 String opt = optionList.get(value);
 	 
+	 JOptionPane.showMessageDialog(null, a.getTotalNumAcc());
 	 
 	 switch(Integer.parseInt(opt))
 	 {
 	 case 1: //If the user selects 1 -- 
 			//creates a checking account
-		 	if(Checking.NUM_CHECKING_ACC > Account.MAX_ACC_EACH) {
+		 	if(a.getNumAcc()> Account.MAX_ACC_EACH) {
 		 		JOptionPane.showMessageDialog(null, "You can only have"+ Account.MAX_ACC_EACH+"Checkings account!");
 		 		
 		 	}else {
@@ -301,7 +307,7 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 			break;
 	 case 2:
 			//creates a MarketAccount account
-			if(MarketAccount.NUM_MARKET_ACC > Account.MAX_ACC_EACH) {
+			if(a.getNumAcc()> Account.MAX_ACC_EACH) {
 				JOptionPane.showMessageDialog(null, "You can only have"+ Account.MAX_ACC_EACH+"market account!");
 			}else{
 				a = new MarketAccount(c,JOptionPane.showInputDialog("Transaction Date"));
@@ -315,7 +321,7 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 			break;
 	 case 3: //If the user selects 3 
 			//creates a savings account
-			if(Savings.NUM_SAVINGS_ACC > Account.MAX_ACC_EACH) {
+			if(a.getNumAcc()> Account.MAX_ACC_EACH) {
 				JOptionPane.showMessageDialog(null, "You can only have "+ Account.MAX_ACC_EACH +" savings account!");
 			}else{
 				a = new Savings(c,JOptionPane.showInputDialog("Transaction Date"),

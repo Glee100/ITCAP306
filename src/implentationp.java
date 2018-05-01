@@ -50,7 +50,7 @@ public class implentationp
  	//Login or create an account
 	 ArrayList<String> optionList = new ArrayList<String>();
 	 
-	 boolean loginWorks = false;
+	 Login customerLogin = null;
 	 
 	 optionList.add("1");
 	 optionList.add("2");
@@ -58,7 +58,7 @@ public class implentationp
 
 	 Object[] options = optionList.toArray();
 	 
-	 while(!loginWorks)
+	 while(customerLogin == null)
 	 {
 		 int value = JOptionPane.showOptionDialog(
                  null,
@@ -76,7 +76,17 @@ public class implentationp
 		 switch(Integer.parseInt(opt))
 		 {
 		 case 1: //If the user selects 1 -- attempt to log in
-			 loginWorks = AttemptLogin(logins);
+			 
+			 //assign customerLogin to a login value or null value that is returned by AttemptLogin
+			 customerLogin = AttemptLogin(logins);
+			 System.out.println("LOGIN WORKS : " + customerLogin);
+			 
+			 //if customer login is not null, give user access to his/her account
+			 if(customerLogin != null)
+			 {
+				 Menu(customerLogin, logins);
+			 }
+			 
 			 break;
 		 case 2: //If the user selects 2 -- create a new user account in the system
 			 CreateCustomerAccount(logins);
@@ -153,7 +163,7 @@ public static Login CreateLogin()
 	 return log;
 }
 
-public static boolean AttemptLogin(HashMap<Login, Vector<Account> > logins)
+public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 {
 	
 	//initialize temporary Login object
@@ -164,26 +174,32 @@ public static boolean AttemptLogin(HashMap<Login, Vector<Account> > logins)
 			 x = CreateLogin();
 			 
 			 //will return illegal argument exception if login is invalid
-			 isValid = Login.validate(x, logins);
+			 //isValid = Login.validate(x, logins);
+			 
+			 Login matchedLogin = Login.validate(x, logins);
 			 
 			 //call menu method with customer associated with the login
 			 
 			 //get value of the specific login
 			 
-			 if(isValid)
+			 //if(isValid)
+			 if(matchedLogin != null)
 			 {
 				 //Customer c = (Customer) logins.get(new Login("customer3", "125")).elements();
 				//Customer c = (Customer) logins.get(x).firstElement();
 				 
 				 //get customer
-					if (logins.containsKey(x))
+					if (logins.containsKey(matchedLogin))
 					{
-						System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
-						return true;
+						//System.out.println("GET CUSTOMER    : " + logins.get(x).firstElement().getCustomer());
+						System.out.println("GET CUSTOMER    : " + logins.get(matchedLogin).firstElement().getCustomer());
+						System.out.println("GET CUSTOMER NAME   : " + logins.get(matchedLogin).firstElement().getCustomer().getFirstName());
+
+						return matchedLogin;
 					}
 					else {
 						System.out.println("\nKEY DOESNT MATCH");
-						return false;
+						return null;
 					}
 				 
 				// System.out.println(c.getFirstName() + " " + c.getLastName());
@@ -197,7 +213,7 @@ public static boolean AttemptLogin(HashMap<Login, Vector<Account> > logins)
 		 {
 			 JOptionPane.showMessageDialog(null, e.getMessage());
 		 }
-		 return false;
+		 return null;
 		 
 		 
 		 //login must be valid in order to access the program

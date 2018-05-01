@@ -111,54 +111,56 @@ public class GeneImpClass
   * */
  public static void Menu(Login customerLogin, HashMap<Login, Vector<Account> > logins) {
 		 
-		 ArrayList<String> optionList = new ArrayList<String>();
+	 ArrayList<String> optionList = new ArrayList<String>();
 		
-		 optionList.add("1");
-		 optionList.add("2");
-		 optionList.add("3");
-		 optionList.add("4");
-		 optionList.add("5");
+	 optionList.add("1");
+	 optionList.add("2");
+	 optionList.add("3");
+	 optionList.add("4");
+	 optionList.add("5");
 
-		 Object[] options = optionList.toArray();
-		 
-		 boolean menuClose = false;
-		 
-		 do {
-		 int value = JOptionPane.showOptionDialog(
-		                 null,
-		                 "Please select an option:\n 1. Create Account \n 2. View Accounts \n3. Make Deposit \n4. Make Withdrawal \n5. Exit",
-		                 "Pick",
-		                 JOptionPane.YES_NO_OPTION,
-		                 JOptionPane.QUESTION_MESSAGE,
-		                 null,
-		                 options,
-		                 optionList.get(0));
+	 Object[] options = optionList.toArray();
+	 
+	 boolean menuClose = false;
+	 
+	 do {
+	 int value = JOptionPane.showOptionDialog(
+	                 null,
+	                 "Please select an option:\n 1. Create Account \n 2. View Accounts \n3. Make Deposit \n4. Make Withdrawal \n5. Exit",
+	                 "Pick",
+	                 JOptionPane.YES_NO_OPTION,
+	                 JOptionPane.QUESTION_MESSAGE,
+	                 null,
+	                 options,
+	                 optionList.get(0));
 
-		 String opt = optionList.get(value);
-		 
-		 
-		 switch(Integer.parseInt(opt))
-		 {
-		 case 1: //If the user selects 1 -- create an account
-			 CreateBankAccount(customerLogin, logins);
-			 break;
-		 case 2: //If the user selects 2 -- view accounts
-			 ViewAccounts(customerLogin, logins);
-			 break;
-		 case 3: //If the user selects 2 -- view accounts
-			 MakeDeposit(customerLogin, logins);
-			 break;
-		 case 4: //If the user selects 2 -- view accounts
-			 MakeWithdrawal(customerLogin, logins);
-			 break;
-		 case 5: //If the user selects 3 -- Exit, exit the program
-			 menuClose = true;
-			 System.exit(0);
-			 break;
-		 default:
-			 break;
-		 }
-		 }while(!menuClose);
+	 String opt = optionList.get(value);
+	 
+	 
+	 switch(Integer.parseInt(opt))
+	 {
+	 case 1: //If the user selects 1 -- create an account
+		 CreateBankAccount(customerLogin, logins);
+		 break;
+	 case 2: //If the user selects 2 -- view accounts
+		 ViewAccounts(customerLogin, logins);
+		 break;
+	 case 3: //If the user selects 2 -- view accounts
+		 MakeDeposit(customerLogin, logins);
+		 break;
+	 case 4: //If the user selects 2 -- view accounts
+		 MakeWithdrawal(customerLogin, logins);
+		 break;
+	 case 5: //If the user selects 3 -- Exit, exit the program
+		 menuClose = true;
+		 System.exit(0);
+		 break;
+	 default:
+		 break;
+	 }
+	 }while(!menuClose);
+	 
+
 		 
 
  }
@@ -277,9 +279,6 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 
 	}});
 	
-	System.out.println("LOGIN HASHMAP CONTAINS KEY: " + logins.containsKey(newLogin));
-	
-	
 	//Menu for the user to create a new account
 	 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -300,7 +299,7 @@ public static Vector<Account> CreateCustomerAccount(HashMap<Login, Vector<Accoun
 
 	 String opt = optionList.get(value);
 	 
-	 //JOptionPane.showMessageDialog(null, a.getTotalNumAcc());
+	 JOptionPane.showMessageDialog(null, a.getTotalNumAcc());
 	 
 	 switch(Integer.parseInt(opt))
 	 {
@@ -608,7 +607,8 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 	 }while(JOptionPane.showConfirmDialog(null,"Do you want to view another account ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
 }
 
- 
+
+
 /*
  * 
  * */
@@ -932,5 +932,5 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 	 }while(JOptionPane.showConfirmDialog(null,"Do you want to withdraw from another account ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
 }
 
-
+ 
 }

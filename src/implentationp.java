@@ -99,10 +99,7 @@ public class implentationp
 		 }
 	 }
 
- 	
- 	
- 	
-     
+
     }
 
  /*
@@ -205,8 +202,8 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 				 //get customer
 					if (logins.containsKey(matchedLogin))
 					{
-						System.out.println("GET CUSTOMER    : " + logins.get(matchedLogin).firstElement().getCustomer());
-						System.out.println("GET CUSTOMER NAME   : " + logins.get(matchedLogin).firstElement().getCustomer().getFirstName());
+						//System.out.println("GET CUSTOMER    : " + logins.get(matchedLogin).firstElement().getCustomer());
+						//System.out.println("GET CUSTOMER NAME   : " + logins.get(matchedLogin).firstElement().getCustomer().getFirstName());
 
 						return matchedLogin;
 					}
@@ -229,7 +226,7 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
 /*
  * This method creates a new Customer, and allows the customer to create a checking, savings, and money market account
  * @param Hashmap<Login, Vector<Account>> logins
- * @return Vector<Account>
+ * @return Login 
  * */
 public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
 	Customer c;
@@ -237,26 +234,20 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 	int totalAccounts = 0;
 	boolean newAccountCreated = false;
 	
-	 //do {
-	// needs a try catch here
-	//create login
-	 
+	 //prompt user for username and password
 	String user = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your username? ");	 
 	String password = JOptionPane.showInputDialog("---Create an Account---\n\nWhat is your password? ");	 
 	
-		 	Login newLogin = new Login(user, password);	 
+	Login newLogin = new Login(user, password);	 
 		 
 	 // creates a customer
-	
 	c = new Customer(JOptionPane.showInputDialog("First Name"),JOptionPane.showInputDialog("Last Name"), 
 			 					JOptionPane.showInputDialog("Address"), JOptionPane.showInputDialog("Phone"), 
 			 							JOptionPane.showInputDialog("email"));
 
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
-	
-		 	logins.put(newLogin, new Vector<Account>() {{
+	logins.put(newLogin, new Vector<Account>() {{ }});
 		 	
-	}});
 	do {
 		
 		//count how many accounts customer has
@@ -311,7 +302,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 	 switch(Integer.parseInt(opt))
 	 {
 	 case 1:
-		 
+		 	//if user does not have existing checking account, create a checking account
 		 	if(!hasCheckingAccount)
 		 	{
 		 
@@ -344,7 +335,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 			
 			break;
 	 case 2:
-		 
+		 	//if user does not have existing market account, create a market account
 		 	if(!hasMarketAccount)
 		 	{
 		 
@@ -371,7 +362,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 	 		
 			break;
 	 case 3: //If the user selects 3 
-			//creates a savings account
+		 	//if user does not have existing savings account, create a savings account
 		 	if(!hasSavingsAccount)
 		 	{
 		 		date = JOptionPane.showInputDialog("Transaction Date");
@@ -408,15 +399,15 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		 totalAccounts = logins.get(newLogin).size();
-		 //System.out.println("Number of total Accounts: >>>>>>"+totalAccounts);
 		}while(JOptionPane.showConfirmDialog(null,"Do you want to add more accounts ?", "Please select",JOptionPane.YES_NO_OPTION)==0 && logins.get(newLogin).size() < Account.MAX_NUM_ACC );
 
 	 // needs to a try catch result inside of the while
 	 //}while(totalAccounts<= Account.MAX_NUM_ACC ); 
 	 if(totalAccounts >= Account.MAX_NUM_ACC ) {
-		 JOptionPane.showMessageDialog(null, "You reached the maximum number of accounts");
+		 JOptionPane.showMessageDialog(null, "You reached the maximum number of bank accounts");
 	 }
 	 
+	 //if new customer account is successfully created, return the login
 	 if(newAccountCreated)
 	 {
 		 return newLogin;

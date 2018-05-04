@@ -7,10 +7,15 @@ public class Savings extends Account{
 	private final double BALANCE_INTEREST = 0.03;// for now
 	private final double BALANCE_INTEREST_MAX = 0.25;
 	public final int INTEREST_BALANCE_FIXED = 50000;
+	
+	private int savingsBalance = 0;
+	
     public Savings(Customer customer, String date, Transaction deposit){
     	super(customer, date);
     	this.deposit = validateMinDeposit(deposit);
     	Account.setDeposit(deposit);
+    	//MY TESTING BELOW-----------------------------------------
+    	setDepositTest(deposit);
     }
     // cannot create without min deposit
     public Transaction validateMinDeposit(Transaction deposit) {
@@ -33,16 +38,50 @@ public class Savings extends Account{
     			this.interest = BALANCE_INTEREST_MAX;//0.25
     		}
     }
+    
     public double getInterest(){
     	return this.interest;
     }
+    
+    
+    
+    @Override
+    public void setDepositTest(Transaction deposit) {
+    	if(deposit.getAmount() <= MIN_TRANS) {throw new IllegalArgumentException("Must a be a positive number");}
+    	savingsBalance += deposit.getAmount();
+    	
+    }
+    
+    @Override
+    public void setWithdrawTest(Transaction withdrawal)
+    {
+    	if(withdrawal.getAmount() <= MIN_TRANS) {throw new IllegalArgumentException("Must a be a positive number");}
+    	savingsBalance -= withdrawal.getAmount();
+    }
+    
+    @Override
+    public double getInterestAmount()
+    {
+    	setInterest(getAccountBalanceTest());
+    	return getAccountBalanceTest() * getInterest();
+    }
+    
+    @Override
+    public double getTotalBalance() {
+    	return getAccountBalanceTest() + getInterestAmount();
+    }
+    
+
+    public int getAccountBalanceTest() {return this.savingsBalance;}
+    
 	@Override
 	public String toString() {
 		return "Savings Account Information: "
 		+ "\nAccount Number: " + getAccountNumber()
 		+ "\nFirst Name: " + getCustomer().getFirstName()
 		+ "\nLast Name: " + getCustomer().getLastName()
-		+ "\nTotal Balance: " + getBalance()
+		+ "\nTotal Savings Account Balance Test: " + getAccountBalanceTest()
+		//+ "\nTotal Balance: " + getBalance()
 		+ "\nTotal Interest: " + getInterestAmount()
 		+ "\nGrand Total Balance: " + getTotalBalance();
 	}

@@ -18,6 +18,9 @@ public abstract class Account{
 	
 	private double accountWithdrawals;
 	
+	private Transaction testDeposit;
+
+	
     public Account(Customer customer, String date){
     	this.customer = customer;
     	accountNumberCreator++;//
@@ -46,6 +49,14 @@ public abstract class Account{
 
     	totalDeposits= totalDeposits + deposit.getAmount();
     }
+    
+    //----------------------------CHANGE TEST--------------
+    //-----------------------------------------------------
+    public abstract void setDepositTest(Transaction deposit);
+    
+    public abstract void setWithdrawTest(Transaction withdrawal);
+    
+    
     public void setWithdrawal(Transaction withdrawal) {
     	if(withdrawal.getAmount() <= MIN_TRANS) {throw new IllegalArgumentException("Must a be a positive number");}
     	if(withdrawal.getAmount() <= getTotalBalance()) {
@@ -134,11 +145,11 @@ public abstract class Account{
     	return "Account information"
     			+ "\nAccount Number: " + getAccountNumber()
     			+ "\nFirst Name: " + getCustomer().getFirstName()
-    			+ "\nLast Name: " + getCustomer().getLastName()
-    			+ "\nTotal Balance: " + getBalance()
-    			+ "\nTotal Interest: " + getInterestAmount()
-    			+ "\nGrand Total Balance: " + getTotalBalanceAccount()
-    			+ "\nGrand Total Balance All users: " + getTotalBalance();
+    			+ "\nLast Name: " + getCustomer().getLastName();
+    		//	+ "\nTotal Balance: " + getBalance()
+    			//+ "\nTotal Interest: " + getInterestAmount()
+    			//+ "\nGrand Total Balance: " + getTotalBalanceAccount()
+    			//+ "\nGrand Total Balance All users: " + getTotalBalance();
     }
    
 }

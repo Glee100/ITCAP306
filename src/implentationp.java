@@ -768,7 +768,8 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 						 	Transaction t = new Transaction(date, amount);
 						 	
 						 	//FIX -- make changes to account/checking classes to set deposit for single not total account
-						 	logins.get(customerLogin).get(checkingAccountIndex).setDeposit(t);
+						 	//logins.get(customerLogin).get(checkingAccountIndex).setDeposit(t);
+						 	logins.get(customerLogin).get(checkingAccountIndex).setDepositTest(t);
 						 	
 						 	//---------------
 						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
@@ -799,7 +800,9 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 						 	Transaction t = new Transaction(date, amount);
 						 	
 						 	//FIX -- make changes to account/market classes to set deposit for single not total account
-						 	logins.get(customerLogin).get(marketAccountIndex).setDeposit(t);
+						 	//logins.get(customerLogin).get(marketAccountIndex).setDeposit(t);
+						 	logins.get(customerLogin).get(marketAccountIndex).setDepositTest(t);
+
 						 	
 						 	//---------------
 						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
@@ -829,7 +832,9 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 						 	Transaction t = new Transaction(date, amount);
 						 	
 						 	//FIX -- make changes to account/savings classes to set deposit for single not total account
-						 	logins.get(customerLogin).get(savingsAccountIndex).setDeposit(t);
+						 	//logins.get(customerLogin).get(savingsAccountIndex).setDeposit(t);
+						 	logins.get(customerLogin).get(savingsAccountIndex).setDepositTest(t);
+
 						 	
 						 	//---------------
 						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
@@ -932,8 +937,8 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 					 	Transaction t = new Transaction(date, amount);
 					 	
 					 	//FIX -- make changes to account/checking classes to set withdrawal for single not total account
-					 	logins.get(customerLogin).get(checkingAccountIndex).setWithdrawal(t);
-					 	
+					 	//logins.get(customerLogin).get(checkingAccountIndex).setWithdrawal(t);
+					 	logins.get(customerLogin).get(checkingAccountIndex).setWithdrawTest(t);
 					 	//---------------
 					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
 					 	
@@ -963,7 +968,9 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 					 	Transaction t = new Transaction(date, amount);
 					 	
 					 	//FIX -- make changes to account/market classes to set deposit for single not total account
-					 	logins.get(customerLogin).get(marketAccountIndex).setWithdrawal(t);
+					 	//logins.get(customerLogin).get(marketAccountIndex).setWithdrawal(t);
+					 	logins.get(customerLogin).get(marketAccountIndex).setWithdrawTest(t);
+
 					 	
 					 	//---------------
 					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
@@ -993,7 +1000,9 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 					 	Transaction t = new Transaction(date, amount);
 					 	
 					 	//FIX -- make changes to account/savings classes to set deposit for single not total account
-					 	logins.get(customerLogin).get(savingsAccountIndex).setWithdrawal(t);
+					 	//logins.get(customerLogin).get(savingsAccountIndex).setWithdrawal(t);
+					 	logins.get(customerLogin).get(savingsAccountIndex).setWithdrawTest(t);
+
 					 	
 					 	//---------------
 					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());

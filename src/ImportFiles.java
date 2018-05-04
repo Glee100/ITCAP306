@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -10,7 +13,7 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class ImportFiles {
-/*
+
 	public static void main(String [] args)
 	{
 		
@@ -33,7 +36,7 @@ public class ImportFiles {
 	 	
 	 	}
 
-	}*/
+	}
 	
 	
 	public static void readFromFile(String path, HashMap<Login, Vector<Account>> logins){
@@ -77,7 +80,7 @@ public class ImportFiles {
 				}});
 				
 				//in text file, we will always having the order checking, then savings, then market account, so if statements will work
-				
+				while(scan2.hasNext()) {
 					try {
 						if(scan2.hasNext(" Checking"))
 						{
@@ -97,7 +100,7 @@ public class ImportFiles {
 							}
 
 						}
-						if(scan2.hasNext(" Savings"))
+						else if(scan2.hasNext(" Savings"))
 						{
 							System.out.println("HAS SAVINGS ACCOUNT");
 							
@@ -115,7 +118,7 @@ public class ImportFiles {
 							}
 
 						}
-						if(scan2.hasNext(" MarketAccount"))
+						else if(scan2.hasNext(" MarketAccount"))
 						{
 							System.out.println("HAS MARKET ACCOUNT");
 							
@@ -138,7 +141,7 @@ public class ImportFiles {
 						e.getMessage();
 					}
 
-
+				}
 				//students[counter++]=s;
 				
 				System.out.println(line);
@@ -154,6 +157,88 @@ public class ImportFiles {
 
 
 	}
+
+
+	public static void writeToFile(String path, HashMap<Login, Vector<Account>> logins)
+	{
+		try{
+			FileWriter fw = new FileWriter(new File(path));
+			FileOutputStream fis =new FileOutputStream(path);
+			PrintWriter pw = new PrintWriter(fis);
+			
+			Iterator it = logins.entrySet().iterator();
+			
+			while(it.hasNext())
+			{
+				String linee = "";
+				
+				Map.Entry<Login, Vector<Account>> entry = (Map.Entry<Login, Vector<Account>>)it.next();
+				
+				String fname = entry.getValue().firstElement().getCustomer().getFirstName();
+				String lname = entry.getValue().firstElement().getCustomer().getLastName();
+				String address = entry.getValue().firstElement().getCustomer().getAddress();
+				String phone = entry.getValue().firstElement().getCustomer().getPhone();
+				String email = entry.getValue().firstElement().getCustomer().getEmail();
+				String user = entry.getKey().getUserName();
+				String pass = entry.getKey().getPassword();
+				
+				linee = fname + ", " + lname + ", " + address + ", " + phone + ", " + email + ", " + user + ", " + pass;
+				
+				//get all accounts for the user
+				Vector<Account> accounts = entry.getValue();
+				
+				String checkingDate;
+				String checkingBalance;
+				String savingsDate;
+				String savingsBalance;
+				String marketDate;
+				String marketBalance;
+				
+				//get the date and balance of each account
+				for(int i=0; i<accounts.size(); i++)
+				{
+			        if (entry.getValue().elementAt(i) instanceof Checking) {
+			            //checkingDate = entry.getValue().elementAt(i).
+			        	//we need date of each transaction???
+			        	
+			        	checkingBalance = Double.toString(entry.getValue().elementAt(i).getTotalBalanceAccount());
+			        	
+			        	linee += ", " + "Checking, " + checkingDate + ", " + checkingBalance;
+			        }
+			        else if (entry.getValue().elementAt(i) instanceof Savings) {
+			            //checkingDate = entry.getValue().elementAt(i).
+			        	//we need date
+			        	
+			        	savingsBalance = Double.toString(entry.getValue().elementAt(i).getTotalBalanceAccount());
+			        	
+			        	linee += ", " + "Savings, " + savingsDate + ", " + savingsBalance;
+			        }
+			        else if (entry.getValue().elementAt(i) instanceof MarketAccount) {
+			            //checkingDate = entry.getValue().elementAt(i).
+			        	//we need date
+			        	
+			        	marketBalance = Double.toString(entry.getValue().elementAt(i).getTotalBalanceAccount());
+			        	
+			        	linee += ", " + "MarketAccount, " + marketDate + ", " + marketBalance;
+			        }
+				}
+				
+
+				
+				//if(students[i]!=null) pw.write(students[i].toString() +"\n");
+			}
+
+			pw.close();
+	
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace(); 
+		}
+		catch( IOException e){
+			e.printStackTrace(); 
+		}
+	}
+
 }
 
 

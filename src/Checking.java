@@ -11,6 +11,8 @@ public class Checking extends Account{
 	
 	private int checkingBalance = 0;
 	
+	//should each account have an array of transactions??
+	
 	//total deposits made to checkings acc
     public Checking(Customer customer, String date, Transaction deposit){
     	super(customer, date);
@@ -43,8 +45,6 @@ public class Checking extends Account{
     	return CHECKING_INTEREST;
     }
     
-    
-    
     @Override
     public void setDepositTest(Transaction deposit) {
     	if(deposit.getAmount() <= MIN_TRANS) {throw new IllegalArgumentException("Must a be a positive number");}
@@ -58,6 +58,8 @@ public class Checking extends Account{
     	if(withdrawal.getAmount() <= MIN_TRANS) {throw new IllegalArgumentException("Must a be a positive number");}
     	checkingBalance -= withdrawal.getAmount();
     }
+    
+
     
     @Override
     public double getInterestAmount()

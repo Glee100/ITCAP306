@@ -8,8 +8,17 @@ public class MarketAccount extends Account{
 	public final int INTEREST_BALANCE_FIXED = 75000;
 	private int marketBalance = 0;
 	
+	//should each account have an array of transactions??
     public MarketAccount(Customer customer, String date){
     	super(customer, date);
+    }
+	
+	
+    public MarketAccount(Customer customer, String date, Transaction deposit){
+    	super(customer, date);
+    	this.deposit = deposit;
+    	
+    	setDepositTest(deposit);
     }
     //returns interest according to the balance
     public void setInterest(double balance) {

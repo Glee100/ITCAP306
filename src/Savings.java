@@ -10,6 +10,8 @@ public class Savings extends Account{
 	
 	private int savingsBalance = 0;
 	
+	//should each account have an array of transactions??
+	
     public Savings(Customer customer, String date, Transaction deposit){
     	super(customer, date);
     	this.deposit = validateMinDeposit(deposit);

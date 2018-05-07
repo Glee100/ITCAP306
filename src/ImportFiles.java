@@ -20,6 +20,8 @@ public class ImportFiles {
 		HashMap<Login, Vector<Account>> logins = new HashMap<Login, Vector<Account>>();
 		
 		String path = "./src/ImportCustomers.txt";
+		
+		String pathEx = "./src/ExportCustomers.txt";
  
 	    readFromFile(path, logins);
 	    
@@ -35,6 +37,9 @@ public class ImportFiles {
 	 		System.out.println(entry.getKey().getUserName()+ "  " + entry.getKey().getPassword() );
 	 	
 	 	}
+	 	
+	 	//update File
+	 	writeToFile(pathEx, logins);
 
 	}
 	
@@ -126,8 +131,9 @@ public class ImportFiles {
 							String accountType = scan2.next().trim();
 							
 							date = scan2.next().trim();
+							//transaction = new Transaction(date, Double.parseDouble(scan2.next()));
 							marketAccount = new MarketAccount(cus, date);
-							
+							System.out.println("MAKRET WORKS");
 							//add market account to the hashmap
 							if (logins.containsKey(newLogin))
 							{
@@ -201,7 +207,10 @@ public class ImportFiles {
 			            //checkingDate = entry.getValue().elementAt(i).
 			        	//we need date of each transaction???
 			        	
-			        	checkingBalance = Double.toString(entry.getValue().elementAt(i).getTotalBalanceAccount());
+			        	Checking ch = (Checking) entry.getValue().elementAt(i);
+			        	
+			        	checkingBalance = Integer.toString((int)ch.getAccountBalanceTest());
+			        	checkingDate = entry.getValue().elementAt(i).getOpenedDate();
 			        	
 			        	linee += ", " + "Checking, " + checkingDate + ", " + checkingBalance;
 			        }
@@ -209,7 +218,10 @@ public class ImportFiles {
 			            //checkingDate = entry.getValue().elementAt(i).
 			        	//we need date
 			        	
-			        	savingsBalance = Double.toString(entry.getValue().elementAt(i).getTotalBalanceAccount());
+			        	Savings sa = (Savings) entry.getValue().elementAt(i);
+			        	
+			        	savingsBalance = Integer.toString((int)sa.getAccountBalanceTest());
+			        	savingsDate = entry.getValue().elementAt(i).getOpenedDate();
 			        	
 			        	linee += ", " + "Savings, " + savingsDate + ", " + savingsBalance;
 			        }
@@ -217,13 +229,15 @@ public class ImportFiles {
 			            //checkingDate = entry.getValue().elementAt(i).
 			        	//we need date
 			        	
-			        	marketBalance = Double.toString(entry.getValue().elementAt(i).getTotalBalanceAccount());
+			        	MarketAccount ma = (MarketAccount) entry.getValue().elementAt(i);
 			        	
-			        	linee += ", " + "MarketAccount, " + marketDate + ", " + marketBalance;
+			        	//marketBalance = Integer.toString((int)ma.getAccountBalanceTest());
+			        	marketDate = entry.getValue().elementAt(i).getOpenedDate();
+			        	
+			        	linee += ", " + "MarketAccount, " + marketDate;
 			        }
 				}
-				
-
+				pw.println(linee);
 				
 				//if(students[i]!=null) pw.write(students[i].toString() +"\n");
 			}

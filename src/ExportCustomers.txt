@@ -1,0 +1,7 @@
+fur, ball, 1234 sfdfs, null, sdf@fds.com, furball, 123, Checking, 12/12/12, 1400
+John, Smith, Pocahontas Road Roanoake VA 23451, 2441235432, jsmith@gmu.edu, jslog, 111, Checking, 12/16/12, 600, Savings, 12/16/12, 800
+Walter, White, Pollos Hermanos Albuquerque NM 46324, 6871242542, heisenberg@gmu.edu, waltlog, 100, Checking, 12/12/12, 1000, Savings, 12/10/12, 1500000, MarketAccount, 12/14/12
+Jessica, Jones, 500 NewPlace Road NY 86744, 8908571267, jess@gmu.edu, jesslog, 555, Checking, 12/20/12, 1020
+Octavia, Blake, 123 Arkadia Drive Tondc DC 99043, 2434566789, oct@gmu.edu, octlog, 888, Checking, 12/16/12, 890, Savings, 12/16/12, 3000
+Yamil, Castro, 123 Rainbow Drive Manassas VA 12345, 7032351534, y@gmu.edu, ymlog, 123, Checking, 12/12/12, 600, Savings, 12/13/12, 800, MarketAccount, 12/14/12
+Gene, Lee, 25642 Trout Drive Fairfax VA 21345, 1452356732, g@gmu.edu, glog, 1234, MarketAccount, 12/15/12

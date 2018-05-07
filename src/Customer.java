@@ -16,8 +16,8 @@ public class Customer{
 	   this.fName = fName;
 	   this.lName = lName;
 	   this.address = address;
-	   setPhone(phone);
-	   setEmail(email);
+	   this.phone = phone;
+	   this.email = email;
     }
    
    //getters

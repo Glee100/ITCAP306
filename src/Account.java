@@ -19,6 +19,7 @@ public abstract class Account{
 	private double accountWithdrawals;
 	
 	private Transaction testDeposit;
+	private String openedDate;
 
 	
     public Account(Customer customer, String date){
@@ -27,6 +28,7 @@ public abstract class Account{
     	//increase the account number and stores it in account number
     	this.accountNumber = accountNumberCreator;//
     	this.totalBalance = accountBalance - accountWithdrawals;
+    	this.openedDate = date;
     	//total number of accounts for each customer
     	totalNumAcc++;
     }
@@ -52,6 +54,11 @@ public abstract class Account{
     
     //----------------------------CHANGE TEST--------------
     //-----------------------------------------------------
+    public void setOpenedDate(String date)
+    {
+    	this.openedDate = date;
+    }
+    
     public abstract void setDepositTest(Transaction deposit);
     
     public abstract void setWithdrawTest(Transaction withdrawal);
@@ -87,6 +94,11 @@ public abstract class Account{
     }
     public double getTotalBalance() {
     	return getBalance() + getInterestAmount();
+    }
+    
+    public String getOpenedDate()
+    {
+    	return this.openedDate;
     }
     /*public abstract void withDrawAmount(int amount);
     public abstract void transactionDate(String date);*/

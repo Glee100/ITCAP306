@@ -18,6 +18,7 @@ public class implentationp
 	HashMap<Login, Vector<Account> > logins = new HashMap<Login, Vector<Account>>();
 	 
 	String path = "./src/ImportCustomers.txt";
+	String pathEx = "./src/ExportCustomers.txt";
 	
 	//call method to read files from path
     ImportFiles.readFromFile(path, logins);
@@ -83,7 +84,8 @@ public class implentationp
 		 case 2: //If the user selects 2 -- create a new user account in the system
 			 
 			 //return the new customer login if it is valid. An invalid account will return null
-			 Login newCustomerLogin = CreateCustomerAccount(logins);
+			 //customer information is saved to the text file
+			 Login newCustomerLogin = CreateCustomerAccount(pathEx, logins);
 			 
 			 if(newCustomerLogin != null)
 			 {
@@ -228,7 +230,7 @@ public static Login AttemptLogin(HashMap<Login, Vector<Account> > logins)
  * @param Hashmap<Login, Vector<Account>> logins
  * @return Login 
  * */
-public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > logins) {
+public static Login CreateCustomerAccount(String pathEx, HashMap<Login, Vector<Account> > logins) {
 	Customer c = null;
 	Account a = null;
 	int totalAccounts = 0;
@@ -268,6 +270,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 
 	//initialize Key Value set in logins hashmap, we will add this customer to the hashmap
 	logins.put(newLogin, new Vector<Account>() {{ }});
+
 		 	
 	do {
 		
@@ -362,6 +365,13 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 		 
 			//creates a MarketAccount account
 				a = new MarketAccount(c,JOptionPane.showInputDialog("Transaction Date"));
+		 		
+		 		
+		 		date = JOptionPane.showInputDialog("Transaction Date");
+		 		
+				/*a = new MarketAccount(c,date,
+					new Transaction(date,
+					Double.parseDouble(JOptionPane.showInputDialog("amount"))));*/
 
 			//add account to hashmap
 		 		System.out.println("****Account to be Added**** \n" + a.toString());
@@ -429,8 +439,10 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
 	 }
 	 
 	 //if new customer account is successfully created, return the login
+	 //save customer account to the text file
 	 if(newAccountCreated)
 	 {
+		 ImportFiles.writeToFile(pathEx, logins);
 		 return newLogin;
 	 }
 	 else {return null;}
@@ -449,6 +461,7 @@ public static Login CreateCustomerAccount(HashMap<Login, Vector<Account> > login
  * */
 public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<Account> > logins)
 {
+	
 		String customerFirstName = logins.get(customerLogin).firstElement().getCustomer().getFirstName();
 
 		Account a = null;
@@ -534,6 +547,12 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 				 	if(!hasMarketAccount)
 				 	{
 						a = new MarketAccount(cust,JOptionPane.showInputDialog("Transaction Date"));
+				 		
+				 		String date = JOptionPane.showInputDialog("Transaction Date: ");
+				 		
+					   /* a = new MarketAccount(cust,date,
+								new Transaction(date,
+								Double.parseDouble(JOptionPane.showInputDialog("amount"))));*/
 						
 						//add account to hashmap
 						if (logins.containsKey(customerLogin))

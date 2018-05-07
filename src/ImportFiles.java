@@ -14,7 +14,7 @@ import java.util.Vector;
 
 public class ImportFiles {
 
-	public static void main(String [] args)
+	/*public static void main(String [] args)
 	{
 		
 		HashMap<Login, Vector<Account>> logins = new HashMap<Login, Vector<Account>>();
@@ -41,7 +41,7 @@ public class ImportFiles {
 	 	//update File
 	 	writeToFile(pathEx, logins);
 
-	}
+	}*/
 	
 	
 	public static void readFromFile(String path, HashMap<Login, Vector<Account>> logins){

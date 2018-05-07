@@ -17,11 +17,11 @@ public class implentationp
 	//map with login as key, and arraylist of customer and accounts as value
 	HashMap<Login, Vector<Account> > logins = new HashMap<Login, Vector<Account>>();
 	 
-	String path = "./src/ImportCustomers.txt";
+	//path of text file that will be updated and read from
 	String pathEx = "./src/ExportCustomers.txt";
 	
 	//call method to read files from path
-    ImportFiles.readFromFile(path, logins);
+    ImportFiles.readFromFile(pathEx, logins);
  
     boolean validLogin = false;
 
@@ -77,7 +77,7 @@ public class implentationp
 			 //if customer login is not null, give user access to his/her account
 			 if(customerLogin != null)
 			 {
-				 Menu(customerLogin, logins);
+				 Menu(pathEx, customerLogin, logins);
 			 }
 			 
 			 break;
@@ -89,7 +89,7 @@ public class implentationp
 			 
 			 if(newCustomerLogin != null)
 			 {
-				 Menu(newCustomerLogin, logins);
+				 Menu(pathEx, newCustomerLogin, logins);
 			 }
 
 			 break;
@@ -110,7 +110,7 @@ public class implentationp
   * @param Login customer Login, HashMap<Login, Vector<Account>> logins
   * @return none
   * */
- public static void Menu(Login customerLogin, HashMap<Login, Vector<Account> > logins) {
+ public static void Menu(String pathEx, Login customerLogin, HashMap<Login, Vector<Account> > logins) {
 		 
 	 ArrayList<String> optionList = new ArrayList<String>();
 		
@@ -141,16 +141,16 @@ public class implentationp
 	 switch(Integer.parseInt(opt))
 	 {
 	 case 1: //If the user selects 1 -- create an account
-		 CreateBankAccount(customerLogin, logins);
+		 CreateBankAccount(pathEx, customerLogin, logins);
 		 break;
 	 case 2: //If the user selects 2 -- view accounts
 		 ViewAccounts(customerLogin, logins);
 		 break;
 	 case 3: //If the user selects 2 -- view accounts
-		 MakeDeposit(customerLogin, logins);
+		 MakeDeposit(pathEx, customerLogin, logins);
 		 break;
 	 case 4: //If the user selects 2 -- view accounts
-		 MakeWithdrawal(customerLogin, logins);
+		 MakeWithdrawal(pathEx, customerLogin, logins);
 		 break;
 	 case 5: //If the user selects 3 -- Exit, exit the program
 		 menuClose = true;
@@ -459,7 +459,7 @@ public static Login CreateCustomerAccount(String pathEx, HashMap<Login, Vector<A
  * @return none
  * 
  * */
-public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<Account> > logins)
+public static void CreateBankAccount(String pathEx, Login customerLogin, HashMap<Login, Vector<Account> > logins)
 {
 	
 		String customerFirstName = logins.get(customerLogin).firstElement().getCustomer().getFirstName();
@@ -533,6 +533,8 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 						if (logins.containsKey(customerLogin))
 						{
 							logins.get(customerLogin).add(a);
+							//-----------------------------------
+							 ImportFiles.writeToFile(pathEx, logins);
 						}
 				 	}
 				 	else
@@ -558,6 +560,8 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 						if (logins.containsKey(customerLogin))
 						{
 							logins.get(customerLogin).add(a);
+							//-----------------------------------
+							 ImportFiles.writeToFile(pathEx, logins);
 						}
 				 	}
 				 	else
@@ -581,7 +585,10 @@ public static void CreateBankAccount(Login customerLogin, HashMap<Login, Vector<
 						if (logins.containsKey(customerLogin))
 						{
 							logins.get(customerLogin).add(a);
+							//-----------------------------------
+							 ImportFiles.writeToFile(pathEx, logins);
 						}
+						
 				 	}
 				 	else
 				 	{
@@ -714,7 +721,7 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
  * @param Login customerLogin, HashMap<Login ,Vector<Accoutn>> logins
  * @return none
  * */
-public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Account>> logins) {
+public static void MakeDeposit(String pathEx, Login customerLogin, HashMap<Login, Vector<Account>> logins) {
 	//count how many accounts customer has
 		final int NUM_ACCOUNTS = logins.get(customerLogin).size();
 		
@@ -789,7 +796,8 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 						 	//FIX -- make changes to account/checking classes to set deposit for single not total account
 						 	//logins.get(customerLogin).get(checkingAccountIndex).setDeposit(t);
 						 	logins.get(customerLogin).get(checkingAccountIndex).setDepositTest(t);
-						 	
+							//-----------------------------------
+							 ImportFiles.writeToFile(pathEx, logins);
 						 	//---------------
 						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
 						 	
@@ -821,7 +829,8 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 						 	//FIX -- make changes to account/market classes to set deposit for single not total account
 						 	//logins.get(customerLogin).get(marketAccountIndex).setDeposit(t);
 						 	logins.get(customerLogin).get(marketAccountIndex).setDepositTest(t);
-
+							//-----------------------------------
+							 ImportFiles.writeToFile(pathEx, logins);
 						 	
 						 	//---------------
 						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
@@ -853,7 +862,8 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
 						 	//FIX -- make changes to account/savings classes to set deposit for single not total account
 						 	//logins.get(customerLogin).get(savingsAccountIndex).setDeposit(t);
 						 	logins.get(customerLogin).get(savingsAccountIndex).setDepositTest(t);
-
+							//-----------------------------------
+							 ImportFiles.writeToFile(pathEx, logins);
 						 	
 						 	//---------------
 						 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());
@@ -883,7 +893,7 @@ public static void MakeDeposit(Login customerLogin, HashMap<Login, Vector<Accoun
  * @param Login customerLogin, HashMap<Login ,Vector<Accoutn>> logins
  * @return none
  * */
-public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Account>> logins) {
+public static void MakeWithdrawal(String pathEx, Login customerLogin, HashMap<Login, Vector<Account>> logins) {
 	//count how many accounts customer has
 	final int NUM_ACCOUNTS = logins.get(customerLogin).size();
 	
@@ -958,6 +968,8 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 					 	//FIX -- make changes to account/checking classes to set withdrawal for single not total account
 					 	//logins.get(customerLogin).get(checkingAccountIndex).setWithdrawal(t);
 					 	logins.get(customerLogin).get(checkingAccountIndex).setWithdrawTest(t);
+						//-----------------------------------
+						 ImportFiles.writeToFile(pathEx, logins);
 					 	//---------------
 					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(checkingAccountIndex).toString());
 					 	
@@ -990,7 +1002,8 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 					 	//logins.get(customerLogin).get(marketAccountIndex).setWithdrawal(t);
 					 	logins.get(customerLogin).get(marketAccountIndex).setWithdrawTest(t);
 
-					 	
+						//-----------------------------------
+						 ImportFiles.writeToFile(pathEx, logins);
 					 	//---------------
 					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(marketAccountIndex).toString());
 					 	
@@ -1022,6 +1035,8 @@ public static void MakeWithdrawal(Login customerLogin, HashMap<Login, Vector<Acc
 					 	//logins.get(customerLogin).get(savingsAccountIndex).setWithdrawal(t);
 					 	logins.get(customerLogin).get(savingsAccountIndex).setWithdrawTest(t);
 
+						//-----------------------------------
+						 ImportFiles.writeToFile(pathEx, logins);
 					 	
 					 	//---------------
 					 	JOptionPane.showMessageDialog(null, logins.get(customerLogin).get(savingsAccountIndex).toString());

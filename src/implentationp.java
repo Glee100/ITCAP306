@@ -250,9 +250,9 @@ public static Login CreateCustomerAccount(String pathEx, HashMap<Login, Vector<A
 			c = new Customer();
 			c.setFirstName(JOptionPane.showInputDialog("First Name"));
 			c.setLastName(JOptionPane.showInputDialog("Last Name"));
-			c.setAddress(JOptionPane.showInputDialog("Address"));
-			c.setPhone(JOptionPane.showInputDialog("Phone"));
-			c.setEmail(JOptionPane.showInputDialog("Email"));
+			c.setAddress(JOptionPane.showInputDialog("Address \n Example : 123 fake st"));
+			c.setPhone(JOptionPane.showInputDialog("Phone\n Example : xxx-xxx-xxxx"));
+			c.setEmail(JOptionPane.showInputDialog("Email \n Example : myfake@email.com"));
 
 			validatedInfo = true;
 		}

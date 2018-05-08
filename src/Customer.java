@@ -230,7 +230,7 @@ public class Customer{
 	   //if name is empty throw exception
 	   if(email == null || email.isEmpty())
 	   {
-		   throw new IllegalArgumentException("Must enter an email address.");
+		   throw new IllegalArgumentException("Must enter an email address. \n Example : myfake@email.com");
 	   }
 	   //if the length of the name is greater than 0
 	   if(email.length() >= MIN_NAME_LENGTH)
@@ -253,12 +253,12 @@ public class Customer{
            counterDot++;
            }
           if(counterAt >= 2 || counterDot >= 2){
-        	  throw new IllegalArgumentException("Error! You must enter a correct email format");
+        	  throw new IllegalArgumentException("Error! You must enter a correct email format \n Example : myfake@email.com");
            }
           if (email.indexOf("@") >= 1 && (email.indexOf(".") >= (email.indexOf("@")+2))){
                       System.out.print("Correct email  format has been entered");
           }else{
-        	  throw new IllegalArgumentException("Error! You must enter a correct email format");
+        	  throw new IllegalArgumentException("Error! You must enter a correct email format \n Example : myfake@email.com");
       }
    }
 

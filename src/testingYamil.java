@@ -55,14 +55,15 @@ public class testingYamil
 	 optionList.add("1");
 	 optionList.add("2");
 	 optionList.add("3");
-
+	 optionList.add("4");
+	 optionList.add("5");
 	 Object[] options = optionList.toArray();
 	 
 	 while(customerLogin == null)
 	 {
 		 int value = JOptionPane.showOptionDialog(
                  null,
-                 "Please select an option:\n 1. Log in \n 2. Create New Account \n3. Exit",
+                 "Please select an option:\n 1. Log in \n 2. Create New Account \n4. Sort \n5. Exit",
                  "Pick",
                  JOptionPane.YES_NO_OPTION,
                  JOptionPane.QUESTION_MESSAGE,
@@ -91,7 +92,10 @@ public class testingYamil
 		 case 2: //If the user selects 2 -- create a new user account in the system
 			 CreateCustomerAccount(logins);
 			 break;
-		 case 3: //If the user selects 3 -- Exit, exit the program
+		 case 4://sorting
+			 sort(logins);
+			 break;
+		 case 5: //If the user selects 3 -- Exit, exit the program
 			 System.exit(0);
 			 break;
 		 default:
@@ -621,6 +625,43 @@ public static void ViewAccounts(Login customerLogin, HashMap<Login, Vector<Accou
 	
 	 }while(JOptionPane.showConfirmDialog(null,"Do you want to view another account ?", "Please select",JOptionPane.YES_NO_OPTION)==0);
 }
+public static void sort(HashMap<Login, Vector<Account>> logins) {
+	
+	// number of keys, size of the hash map
+	final int NUM_ACCOUNTS = logins.size();
+	//creating an iterator
+	
+	Set<Login> keySet = logins.keySet();
+	Iterator<Login> keySetIterator = keySet.iterator();
+	
+	while(keySetIterator.hasNext()) {
+		System.out.println("----------------");
+		System.out.println("Iterarting Map");
+		
+		Login key = keySetIterator.next();
+		//logins.get(key) gets the value
+		System.out.println("key"+ key + "Value: " + logins.get(key));
+	}
+	Vector<Account> sortBalance = new Vector<Account>();
 
+/*int [] bucket=new int[maxVal+1];
+ 
+for (int i=0; i<bucket.length; i++) {
+   bucket[i]=0;
+}
+
+for (int i=0; i<a.length; i++) {
+   bucket[a[i]]++;
+}
+
+int outPos=0;
+for (int i=0; i<bucket.length; i++) {
+   for (int j=0; j<bucket[i]; j++) {
+      a[outPos++]=i;
+   }
+
+}*/
+
+}
  
 }

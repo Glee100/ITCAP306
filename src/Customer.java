@@ -82,6 +82,7 @@ public class Customer{
    //set last name
    public void setLastName(String name)
    {
+	   name = name.trim();
 	   //if name is empty throw exception
 	   if(name == null || name.isEmpty())
 	   {
@@ -109,23 +110,85 @@ public class Customer{
    //set address
    public void setAddress(String address)
    {
-	   //if name is empty throw exception
-	   if(address == null || address.isEmpty())
-	   {
-		   throw new IllegalArgumentException("Must enter an adress.");
-	   }
-
-	   //if the length of the name is greater than 0
-	   if(address.length() >= MIN_NAME_LENGTH)
-	   {
-		   this.address = address;
-	   }
-	   else {
-		   throw new IllegalArgumentException("Address must be at least one character.");
-	   }
-
+       address = address.trim(); 
+  	   final int MAX_NUM_ADD = 5;
+  	   final int MAX_NUM_ST = 15;
+  	   final int MAX_NUM_LAST = 8;
+   //if name is empty throw exception
+   if(address == null || address.isEmpty())
+   {
+	   throw new IllegalArgumentException("Must enter a address");
    }
+
+   //if the length of the name is greater than 6 : 1 a st
+   if(address.length() >= 6)
+   {
+	   address = address;
+   }
+   else {		   
+	   throw new IllegalArgumentException("Must enter a number , name and type \n Example : 123 fake st");
+   }
+   if((!(Character.isDigit(address.charAt(0))))){
+	   throw new IllegalArgumentException("Error! An address must start with a digit");
+   }
+
    
+   int num =0;
+   String firstPart = address.substring(0,MAX_NUM_ADD);
+   for(int x = 0; x < firstPart.length(); x++){
+       	   if(((Character.isDigit(firstPart.charAt(x))))){
+       	   num++;
+       }
+   }
+   int st = 0;
+   int last = 0;
+  
+        String secondPart = address.substring(num, address.length());
+        System.out.println(address.substring(num, address.length()));
+        
+       if(!(secondPart.charAt(0) == ' ')){
+    	   throw new IllegalArgumentException("Error! incorrect format needs blank spaces or exceeded number of digits");
+       }else{
+           
+           for(int x = 1; x < secondPart.length(); x++){
+                if((!(Character.isDigit(secondPart.charAt(x))))){
+                    if(secondPart.charAt(x)== ' '){
+                         last = st +1;
+                    }
+                   st++;
+       	       
+       	       }  
+       	       if(Character.isDigit(secondPart.charAt(x))){
+       	    	throw new IllegalArgumentException("Error !Street's name cannot have numbers!");
+               }
+         }
+       }
+       if(last > MAX_NUM_ST){
+    	   throw new IllegalArgumentException("Error! Street name is too long!");
+       }
+    
+        String thirdPart = address.substring((num+last), address.length());
+         if(secondPart.equals(thirdPart)){
+        	 throw new IllegalArgumentException("Error! Must enter a number , name and type \n Example : 123 fake st");
+           }
+          if(!(thirdPart.charAt(0) == ' ')){
+        	  throw new IllegalArgumentException("Error! Must enter a number , name and type \n Example : 123 fake st");
+          }else{
+             for(int x = 1; x < thirdPart.length(); x++){
+                if((!(Character.isDigit(thirdPart.charAt(x))))){
+       	       }  
+       	       if(Character.isDigit(thirdPart.charAt(x))){
+       	    	throw new IllegalArgumentException("Error, you cannot have more digits");
+               }
+         }
+        
+       
+}
+ if(thirdPart.length() > MAX_NUM_LAST){
+	 throw new IllegalArgumentException("Error! Street type is too long!");
+       }
+ System.out.println("Valid address has been entered");
+}
    //set phone
    public void setPhone(String phone)
    {
@@ -153,7 +216,7 @@ public class Customer{
 	   
 	   String regexStr = "^(1\\-)?[0-9]{3}\\-?[0-9]{3}\\-?[0-9]{4}$" ;
 	   if (phone.matches(regexStr)) {
-	    System.out.println("correct format entered");
+	    System.out.println("Correct phone number format has been entered");
 	    
 	   }else {
 	       throw new IllegalArgumentException("You must enter a correct format!");
@@ -169,8 +232,6 @@ public class Customer{
 	   {
 		   throw new IllegalArgumentException("Must enter an email address.");
 	   }
-	   
-
 	   //if the length of the name is greater than 0
 	   if(email.length() >= MIN_NAME_LENGTH)
 	   {
@@ -179,6 +240,27 @@ public class Customer{
 	   else {
 		   throw new IllegalArgumentException("email must be at least one character.");
 	   }
+       int counterAt =0;
+       int counterDot = 0;
+       //trimming email to eliminate blank spaces
+       email = email.trim();
+      for (int i =0; i <email.length(); i++){
+          
+          if(email.charAt(i) == '@'){
+           counterAt ++;
+           }
+          if(email.charAt(i) == '.'){
+           counterDot++;
+           }
+          if(counterAt >= 2 || counterDot >= 2){
+        	  throw new IllegalArgumentException("Error! You must enter a correct email format");
+           }
+          if (email.indexOf("@") >= 1 && (email.indexOf(".") >= (email.indexOf("@")+2))){
+                      System.out.print("Correct email  format has been entered");
+          }else{
+        	  throw new IllegalArgumentException("Error! You must enter a correct email format");
+      }
+   }
 
    }
    
